@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PharmDirect B2B | Medical Wholesale Catalog</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#006f64",
+                    "primary-container": "#0f52ba",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#6df5e1",
+                    "surface-container-low": "#eff4ff",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "surface-container": "#e5eeff",
+                    "surface-container-high": "#dce9ff",
+                    "on-tertiary-container": "#ffc0a7",
+                    "surface-variant": "#d3e4fe",
+                    "outline": "#737784",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#1d59c1",
+                    "inverse-primary": "#b0c6ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#bcceff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#005048",
+                    "background": "#f8f9ff",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-secondary-fixed": "#00201c",
+                    "primary": "#003c90",
+                    "inverse-surface": "#213145",
+                    "outline-variant": "#c3c6d5",
+                    "on-primary-fixed": "#001945",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d9e2ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-surface-variant": "#434653",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#006b5f",
+                    "secondary-fixed": "#71f8e4",
+                    "surface-bright": "#f8f9ff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface": "#0b1c30",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary-container": "#993900",
+                    "tertiary": "#732900",
+                    "on-primary-fixed-variant": "#00419c",
+                    "on-error": "#ffffff",
+                    "on-background": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "24px",
+                    "gutter": "24px",
+                    "stack-sm": "4px",
+                    "stack-md": "12px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "data-label": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "headline-md-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "data-label": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .clinical-shadow {
+            box-shadow: 0px 4px 12px rgba(15, 82, 186, 0.05);
+        }
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-gutter">
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed" href="#">PharmDirect B2B</a>
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Catalog</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary-container dark:hover:text-primary-fixed-dim transition-colors font-body-md text-body-md" href="#">Orders</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary-container dark:hover:text-primary-fixed-dim transition-colors font-body-md text-body-md" href="#">Inventory</a>
+</div>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden lg:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-lg border-none focus:ring-2 focus:ring-primary text-body-sm font-body-sm" placeholder="Search by SKU, Generic, or Manufacturer..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative bg-surface-container-low overflow-hidden border-b border-outline-variant">
+<div class="absolute inset-0 opacity-10">
+
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-20 relative z-10 flex flex-col md:flex-row items-center gap-12">
+<div class="md:w-1/2">
+<span class="inline-block px-3 py-1 bg-primary-container text-white rounded-full font-data-label text-data-label mb-4">WHOLESALE ONLY</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-6">Precision Supply for Healthcare Professionals</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 max-w-lg">
+                        Reliable B2B medical procurement. Real-time stock status, automated fulfillment, and specialized storage logistics for pharmacies and hospitals.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-headline-sm text-headline-sm clinical-shadow hover:opacity-90 transition-all">Explore Inventory</button>
+<button class="border-2 border-secondary text-secondary px-8 py-3 rounded-lg font-headline-sm text-headline-sm flex items-center gap-2 hover:bg-secondary-container/10 transition-all">
+<span class="material-symbols-outlined">chat</span> Order on WhatsApp
+                        </button>
+</div>
+</div>
+<div class="md:w-1/2 flex justify-center">
+<div class="w-full h-[400px] rounded-xl overflow-hidden clinical-shadow border border-outline-variant bg-white relative">
+<img class="w-full h-full object-cover" data-alt="A professional, high-definition macro photograph of a sterile medical laboratory environment. Stainless steel surfaces reflect soft, bright overhead clinical lighting. In the foreground, organized glass vials with blue caps sit on a tray next to a modern medical tablet displaying inventory charts. The background is softly blurred, showing a clean, white, hyper-modern pharmaceutical warehouse with subtle blue accents, creating an authoritative and sterile B2B aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh14DhBMYEUi654u7etTv68m8kw1q5UyKFCoYV0-Hf0WEBF7bkY-0eXUvTlgQL7Rt0iqyKhFg0SS3zYeG0A49md-j1STr3ILPcuNFKeQLzHhxP26DJ3e6D_e6UV_WgSuDUyAZnNsIg3HC2qke09SkSr09hzw4DnoR5CBvkPYNisGAHKwiS5JYRzdjE-7xYw_WJu2WhkklK052pDJdJ5iWe1w1qPPg8geVY3wZwXTdG7rt7d07dXdgZuvmSqAmEnS__GkF043uddFKg"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Grid -->
+<section class="py-16 max-w-container-max mx-auto px-gutter">
+<div class="flex items-end justify-between mb-10">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Procurement Categories</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Browse our comprehensive medical supply divisions</p>
+</div>
+<button class="text-primary font-body-md text-body-md hover:underline">View All Categories</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-stack-lg">
+<!-- Tablet Category -->
+<div class="group cursor-pointer">
+<div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col items-center text-center transition-all group-hover:clinical-shadow group-hover:border-primary">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">medication</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Tablets</h3>
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider">1,240 Items</span>
+</div>
+</div>
+<!-- Capsules Category -->
+<div class="group cursor-pointer">
+<div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col items-center text-center transition-all group-hover:clinical-shadow group-hover:border-primary">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">hevc</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Capsules</h3>
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider">850 Items</span>
+</div>
+</div>
+<!-- Syrups Category -->
+<div class="group cursor-pointer">
+<div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col items-center text-center transition-all group-hover:clinical-shadow group-hover:border-primary">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">chips</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Syrups</h3>
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider">420 Items</span>
+</div>
+</div>
+<!-- Injections Category -->
+<div class="group cursor-pointer">
+<div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col items-center text-center transition-all group-hover:clinical-shadow group-hover:border-primary">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">vaccines</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Injections</h3>
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider">615 Items</span>
+</div>
+</div>
+<!-- Medical Supplies Category -->
+<div class="group cursor-pointer">
+<div class="bg-white border border-outline-variant p-6 rounded-xl flex flex-col items-center text-center transition-all group-hover:clinical-shadow group-hover:border-primary">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">medical_services</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-1">Medical Supplies</h3>
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider">2,100 Items</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Products -->
+<section class="py-16 bg-surface">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Featured Products</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">High-demand technical inventory currently in stock</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden group transition-all hover:clinical-shadow">
+<div class="h-48 bg-surface-container relative p-4 flex items-center justify-center">
+<img class="h-full object-contain mix-blend-multiply transition-transform group-hover:scale-105 duration-300" data-alt="A clean, minimalist product shot of a pharmaceutical box for Amoxicillin Capsules. The box design is clinical, using white and deep blue colors with clear black typography. The lighting is bright and even, casting minimal soft shadows on a light gray clinical background. The image is crisp, professional, and suitable for a B2B medical catalog, emphasizing the pharmaceutical brand's reliability and sterile packaging." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyTRvxXFUe6nhz791409YflFwOQRhHheX4QIbz1C5vCEYcQbVR8SOz0OTwRH7d5fPy_xj08E0kRJdYFuqpR_9ph-SFmoKsBpCgcPPzTSJUAE3zkzFRVSa5LlIqenFMgAm97e4vjFA-aYNjMnKapuob2R4J32wISwV4srXiPrwqEII8l11ycB2Iw7AsGcOAKDa2uv0zGSDwPCODiJWAZwCv0lsrazD2-AhGaYhAEySsO1k5mXYkUBA6-UVYe12hRs9KEbSVqWA6AkMJ"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-sm font-data-label text-[10px] font-bold">IN STOCK</span>
+</div>
+<div class="p-5 flex flex-col h-[200px]">
+<span class="font-data-label text-[11px] text-outline mb-1 uppercase tracking-tighter">GlaxoSmithKline (GSK)</span>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-2 line-clamp-2">Amoxicillin 500mg Broad Spectrum</h4>
+<div class="mt-auto">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/30 mb-4">
+<div class="flex justify-between text-[11px] font-data-label mb-1">
+<span class="text-outline">SKU</span>
+<span class="text-on-surface">GSK-AMX-500-100</span>
+</div>
+<div class="flex justify-between text-[11px] font-data-label">
+<span class="text-outline">STRENGTH</span>
+<span class="font-bold text-on-surface">500 MG</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed-variant py-2 rounded font-headline-sm text-[14px] hover:bg-primary-container hover:text-white transition-colors">Add to Quote</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden group transition-all hover:clinical-shadow">
+<div class="h-48 bg-surface-container relative p-4 flex items-center justify-center">
+<img class="h-full object-contain mix-blend-multiply transition-transform group-hover:scale-105 duration-300" data-alt="A high-quality clinical product image of a bottle of Atorvastatin tablets. The white plastic bottle features a professional blue and white label with monospaced technical data. The bottle sits on a reflective white surface under soft, diffuse studio lighting. The aesthetic is clean, precise, and professional, perfectly suited for a wholesale healthcare procurement platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDST-LsEpxlTvF0e7dNaTRqbNLHZpiBzZa_Fprz_FYMb5rAd8f7NDdsdkEOfsGmpS0vI0NyrOw7ZjgOU8i5X4fyNEjhlTxR2H41JZTUGyKnBuC6nA2jVq5Q7sCgycQIRBpoJnJvbgGRTq2d99O3Y-zudBaWAvGtmh8iA4Zf_e7xDhTFtM6lOYnNPJ9rQ42B1e79DF67XtfOp7O05AiwIkc17yshvw5e1aIDmE3Z1XsVR56Mf-HR9A1VSdOo98NfyRbXW3Iyt7kNHLef"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-sm font-data-label text-[10px] font-bold">IN STOCK</span>
+</div>
+<div class="p-5 flex flex-col h-[200px]">
+<span class="font-data-label text-[11px] text-outline mb-1 uppercase tracking-tighter">Pfizer Inc.</span>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-2 line-clamp-2">Atorvastatin Calcium (Lipitor)</h4>
+<div class="mt-auto">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/30 mb-4">
+<div class="flex justify-between text-[11px] font-data-label mb-1">
+<span class="text-outline">SKU</span>
+<span class="text-on-surface">PFZ-ATR-20-90</span>
+</div>
+<div class="flex justify-between text-[11px] font-data-label">
+<span class="text-outline">STRENGTH</span>
+<span class="font-bold text-on-surface">20 MG</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed-variant py-2 rounded font-headline-sm text-[14px] hover:bg-primary-container hover:text-white transition-colors">Add to Quote</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden group transition-all hover:clinical-shadow">
+<div class="h-48 bg-surface-container relative p-4 flex items-center justify-center">
+<img class="h-full object-contain mix-blend-multiply transition-transform group-hover:scale-105 duration-300" data-alt="Professional studio photography of a sterile box containing insulin pens. The packaging is minimalist, primarily white with teal accents and clear, sans-serif medical labeling. The box is positioned angled to the camera on a clean white surface with a slight shadow. The overall mood is sterile, medical-grade, and authoritative, consistent with a premium wholesale medical catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjLl6iAoqJTCQjdC8fjlYu_8kuGBVMFfMqRKKAwlSKXoCC9lNBk_7CWoTCLegYrQgyBNsRkWN5zkKn3JXwMImji_y7cvqJXMLtlA95DgwTNS2pON4cL90seR6ZBxtpIGzCj1qcaxMKLEkns3qzEaNh6dEe5wS5hK5spiynv28EVP8rIMo3F6nW5dY9lOel7Fz3Ty3k8k-GEQG0f7AI6kvwGh2nTFBQk9cSTf9V59B7AppMNZBpAAnV_E7jjkn03tzQ4ww8J7JtSk4I"/>
+<span class="absolute top-3 left-3 bg-tertiary-fixed-dim text-on-tertiary-fixed-variant px-2 py-1 rounded-sm font-data-label text-[10px] font-bold">LIMITED STOCK</span>
+</div>
+<div class="p-5 flex flex-col h-[200px]">
+<span class="font-data-label text-[11px] text-outline mb-1 uppercase tracking-tighter">Novo Nordisk</span>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-2 line-clamp-2">Insulin Aspart (Novolog FlexPen)</h4>
+<div class="mt-auto">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/30 mb-4">
+<div class="flex justify-between text-[11px] font-data-label mb-1">
+<span class="text-outline">SKU</span>
+<span class="text-on-surface">NVN-INS-AS-100</span>
+</div>
+<div class="flex justify-between text-[11px] font-data-label">
+<span class="text-outline">STRENGTH</span>
+<span class="font-bold text-on-surface">100 U/ML</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed-variant py-2 rounded font-headline-sm text-[14px] hover:bg-primary-container hover:text-white transition-colors">Add to Quote</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden group transition-all hover:clinical-shadow">
+<div class="h-48 bg-surface-container relative p-4 flex items-center justify-center">
+<img class="h-full object-contain mix-blend-multiply transition-transform group-hover:scale-105 duration-300" data-alt="A clean, medical-grade product image of a pack of sterile 21G syringes. The packaging is transparent, showing the precision stainless steel needles and clear plastic barrels. The background is a crisp, bright white. The lighting is clinical and professional, emphasizing the sterility and technical precision of the medical supplies. The design is intended for high-end B2B medical procurement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjXD7XGJdEmk5mwqzppHYlPkuMEQwkBsfTd_1vpzkqmeSZ2y3_md0PYnZwNJGTLCp_aORB4GGgUgfY2Mb3uJrqC9BHDycpx5NME_oL6OCatqGuZVOjXQKnY1QI5Rl2tsIkcGPQcStMMzJ5PTlMmoDjSVeniylqEZHo8CuGJ3cM4Np-eyNeeAOmaJ57KORjLz4ig8xZwjU615HQ1BniJ6fP21IFTgQpRd2kiVtjvxEhaMHoBO54j_9CcKp52H3QcQkOqeL2kaaUp5uE"/>
+<span class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-sm font-data-label text-[10px] font-bold">FDA APPROVED</span>
+</div>
+<div class="p-5 flex flex-col h-[200px]">
+<span class="font-data-label text-[11px] text-outline mb-1 uppercase tracking-tighter">Becton Dickinson (BD)</span>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-2 line-clamp-2">Hypodermic Syringe 3mL 21G</h4>
+<div class="mt-auto">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/30 mb-4">
+<div class="flex justify-between text-[11px] font-data-label mb-1">
+<span class="text-outline">SKU</span>
+<span class="text-on-surface">BD-SYR-3ML-21G</span>
+</div>
+<div class="flex justify-between text-[11px] font-data-label">
+<span class="text-outline">PACK SIZE</span>
+<span class="font-bold text-on-surface">100 UNITS</span>
+</div>
+</div>
+<button class="w-full bg-primary-fixed text-on-primary-fixed-variant py-2 rounded font-headline-sm text-[14px] hover:bg-primary-container hover:text-white transition-colors">Add to Quote</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Informational Banner -->
+<section class="bg-inverse-surface py-12 px-gutter text-white overflow-hidden relative">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+<div class="md:w-2/3">
+<h3 class="font-headline-md text-headline-md mb-4 text-primary-fixed">Regulatory Compliance &amp; Storage</h3>
+<p class="font-body-md text-body-md text-surface-container-low mb-6">
+                        All pharmaceuticals are handled in accordance with WHO Good Distribution Practices (GDP). Our facilities maintain strict cold-chain management (2°C to 8°C) where required, ensuring clinical integrity from the manufacturer to your facility.
+                    </p>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">verified</span>
+<span class="font-data-label text-data-label">ISO 9001:2015</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">ac_unit</span>
+<span class="font-data-label text-data-label">Cold-Chain Logged</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">task_alt</span>
+<span class="font-data-label text-data-label">FDA Licensed</span>
+</div>
+</div>
+</div>
+<div class="md:w-1/3 flex justify-end">
+<button class="bg-surface-bright text-on-surface px-8 py-4 rounded-xl font-headline-sm text-headline-sm hover:bg-primary-container hover:text-white transition-all shadow-lg">Download Certifications</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant">
+<div class="w-full py-12 px-gutter max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="flex flex-col gap-4">
+<span class="font-headline-sm text-headline-sm text-primary">PharmDirect Medical Wholesale</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">The leading clinical-grade procurement partner for registered pharmacies and hospital networks worldwide.</p>
+<div class="flex gap-4 mt-2">
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-data-label text-data-label text-outline uppercase tracking-widest">Resources</span>
+<nav class="flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors focus:underline decoration-2" href="#">Contact Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors focus:underline decoration-2" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors focus:underline decoration-2" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors focus:underline decoration-2" href="#">Certifications</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-data-label text-data-label text-outline uppercase tracking-widest">Headquarters</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    742 Medical Logistics Plaza<br/>
+                    Suite 100, Clinical District<br/>
+                    Houston, TX 77030
+                </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">© 2024 PharmDirect Medical Wholesale. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for product cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Future interaction logic
+            });
+        });
+
+        // Search bar focus behavior
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary');
+        });
+    </script>
+</body></html>

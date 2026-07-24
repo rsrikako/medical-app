@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Check if user is authenticated admin
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    // Products collection:
+    // Anyone can read active products. Admins can read/write everything.
+    match /products/{productId} {
+      allow read: if isAdmin() || resource.data.status == 'active';
+      allow write: if isAdmin();
+    }
+
+    // Categories collection:
+    // Anyone can read active categories. Admins can read/write everything.
+    match /categories/{categoryId} {
+      allow read: if isAdmin() || resource.data.status == 'active';
+      allow write: if isAdmin();
+    }
+
+    // Settings collection (e.g., settings/store):
+    // Anyone can read store settings (WhatsApp number, name). Admins can write.
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

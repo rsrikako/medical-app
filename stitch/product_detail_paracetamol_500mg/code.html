@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PharmDirect B2B | Product Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-container": "#006f64",
+                  "primary-container": "#0f52ba",
+                  "on-primary": "#ffffff",
+                  "secondary-container": "#6df5e1",
+                  "surface-container-low": "#eff4ff",
+                  "surface": "#f8f9ff",
+                  "secondary-fixed-dim": "#4fdbc8",
+                  "surface-container": "#e5eeff",
+                  "surface-container-high": "#dce9ff",
+                  "on-tertiary-container": "#ffc0a7",
+                  "surface-variant": "#d3e4fe",
+                  "outline": "#737784",
+                  "on-error-container": "#93000a",
+                  "surface-tint": "#1d59c1",
+                  "inverse-primary": "#b0c6ff",
+                  "on-secondary": "#ffffff",
+                  "on-primary-container": "#bcceff",
+                  "surface-dim": "#cbdbf5",
+                  "on-secondary-fixed-variant": "#005048",
+                  "background": "#f8f9ff",
+                  "on-tertiary-fixed": "#360f00",
+                  "on-secondary-fixed": "#00201c",
+                  "primary": "#003c90",
+                  "inverse-surface": "#213145",
+                  "outline-variant": "#c3c6d5",
+                  "on-primary-fixed": "#001945",
+                  "surface-container-lowest": "#ffffff",
+                  "primary-fixed": "#d9e2ff",
+                  "tertiary-fixed-dim": "#ffb596",
+                  "on-surface-variant": "#434653",
+                  "error": "#ba1a1a",
+                  "on-tertiary": "#ffffff",
+                  "secondary": "#006b5f",
+                  "secondary-fixed": "#71f8e4",
+                  "surface-bright": "#f8f9ff",
+                  "error-container": "#ffdad6",
+                  "on-tertiary-fixed-variant": "#7d2d00",
+                  "primary-fixed-dim": "#b0c6ff",
+                  "inverse-on-surface": "#eaf1ff",
+                  "on-surface": "#0b1c30",
+                  "tertiary-fixed": "#ffdbcd",
+                  "surface-container-highest": "#d3e4fe",
+                  "tertiary-container": "#993900",
+                  "tertiary": "#732900",
+                  "on-primary-fixed-variant": "#00419c",
+                  "on-error": "#ffffff",
+                  "on-background": "#0b1c30"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "stack-lg": "24px",
+                  "gutter": "24px",
+                  "stack-sm": "4px",
+                  "stack-md": "12px",
+                  "margin-mobile": "16px",
+                  "base": "8px",
+                  "container-max": "1280px"
+          },
+          "fontFamily": {
+                  "headline-sm": ["Inter"],
+                  "data-label": ["JetBrains Mono"],
+                  "body-sm": ["Inter"],
+                  "headline-md-mobile": ["Inter"],
+                  "body-md": ["Inter"],
+                  "display-lg": ["Inter"],
+                  "headline-md": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                  "data-label": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                  "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                  "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">PharmDirect B2B</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary-container dark:hover:text-primary-fixed-dim transition-colors font-body-md text-body-md" href="#">Browse Catalog</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Products</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary-container dark:hover:text-primary-fixed-dim transition-colors font-body-md text-body-md" href="#">Orders</a>
+</nav>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden lg:block">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary focus:border-primary transition-all text-body-sm font-body-sm" placeholder="Search medications, manufacturers, SKUs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 max-w-container-max mx-auto px-gutter min-h-screen">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 mb-8 text-on-surface-variant font-body-sm text-body-sm">
+<a class="hover:text-primary" href="#">Inventory</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary" href="#">Analgesics &amp; Antipyretics</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-medium">Paracetamol 500mg</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Product Image Section (Bento Inspired) -->
+<div class="lg:col-span-7 space-y-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden aspect-square flex items-center justify-center p-12 group">
+<img class="max-w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500" data-alt="A professional, high-resolution commercial studio photograph of a premium pharmaceutical product box for Paracetamol 500mg. The packaging is minimalist, predominantly white with clean blue medical branding. It is set against a sterile, soft-lit laboratory background with subtle bokeh effects. The lighting is bright and even, highlighting the clinical quality and reliability of the medicine in a modern healthcare setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-7q10BWlGBPF53BBKNtMpf2YY8kL6RD6khgKZKBzEgexlZuoM0NvN1314ODr4LObzFMjQyHCOBHGSpURMH0_JTbDubZlQUUrshMp8zjO8o1D5mYVB_En5eFi6hdx-cYIWHYpxl0Lxi33apBL7SG_oTJgxbyogVocNuUYJ1VJnt333QiWTyFYkrbDkYpGBAP8HexOcwuFb-0egH6psdTPpbDw0DjUzZYMG2f3bge42-HWWjM-WKJFtBCA-qrTZ2Y4HY7hlPCy3hezQ"/>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<button class="border-2 border-primary rounded-lg overflow-hidden aspect-square bg-surface-container-lowest">
+<img class="w-full h-full object-cover opacity-80" data-alt="A close-up view of the ingredients and dosage information on the side of a Paracetamol 500mg medicine box. The text is crisp and legible, emphasizing clinical safety standards. The lighting is cool and professional, matching the sterile medical aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC812gTRd7l6BqtBraf_vFEo9tqFS1c6F7cI4KqamvolUk2fhsfnP-Sf4Qhs3maZQi1X51xC_kjQlgE1lWvi6SiIN6wRqrL6FaQckFOzjFxn7muCKd3SOQ2BfxCBqCTsmkMOlVPBsB7GQHZHZ3sHiat1zh2CbOzwkN_FUEJaTr_Nsc0RaTmb5a0g8gDCHF3NYWKXTCtLDr6v4hwmavwpCTA_xNzC4_-iiXYT3FmSBlmQ6DN2ZWVNl1Iee7XYVdaQ4FhQtP7mmybRKda"/>
+</button>
+<button class="border border-outline-variant rounded-lg overflow-hidden aspect-square bg-surface-container-lowest hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A macro shot of white, circular paracetamol tablets neatly arranged on a sterile stainless steel medical tray. The focus is sharp on the texture of the pills, with a shallow depth of field. The overall tone is professional, clean, and clinical." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyLEt1Pm7e8KWb0Oe18031a8dbb28GZ_DXIHcxyM7TIh51QtoCv3AIefOVHNWmmnV-cfX2NPVbTCRtBv6RDAwlZDvsO9DwjVi7jgoJtI3OTklHNKcdpSlb8D041OntH6unn9n-Fzv5N0YDYVLSk4sCGMVpGR3Wd6TRODeP4Mu48UkvMTGqlTJMfoN7801bTYE8eRsI2Zb5lbrrwWvdoUTvs0Q1wq_SFC_q3jTyfj-e8xjdjiuSjSiwHZTV-W7DuovJUX_oUV0lJhZJ"/>
+</button>
+<button class="border border-outline-variant rounded-lg overflow-hidden aspect-square bg-surface-container-lowest hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A view of the back of the pharmaceutical packaging showing the barcode, serial number, and expiration date stickers. The imagery conveys logistical accuracy and regulatory compliance in a B2B medical wholesale context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDapFJpuagUpbvLInFjXDaokU9kKmr6qOxmKmGsDHBaUs98AL5Pr0BkfBly8nNU7TgSxp4JZ9-D1zGf8OIOVxjx_Pu04jIUtUsM8Ayn5Ifgon-gP8HYQEjeiEPIsduQfN921yL0F3uH3wdYPh3Xd79cN4DXbOYCjXlSdcBfWbgowRx1xBUxr1dyAoLjbARsN2eiou-3zF8VUJcxjudwLsP-ap9ad9cfJaD9-LL1l70WBxG-99nTJ5qlAy99bCq8H7Sa17iw6reEZ9K"/>
+</button>
+<div class="border border-outline-variant border-dashed rounded-lg flex items-center justify-center bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined">videocam</span>
+</div>
+</div>
+</div>
+<!-- Product Info Section -->
+<div class="lg:col-span-5 space-y-8">
+<header>
+<div class="flex items-center gap-3 mb-2">
+<span class="text-on-surface-variant font-data-label text-data-label">GSK CONSUMER HEALTH</span>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded font-data-label text-data-label">IN STOCK</span>
+</div>
+<h1 class="font-display-lg text-[32px] lg:text-display-lg text-on-surface leading-tight mb-2">Paracetamol 500mg</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Standard oral analgesic and antipyretic for moderate pain relief and fever reduction.</p>
+</header>
+<!-- Technical Specs Table-style -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl divide-y divide-outline-variant overflow-hidden">
+<div class="grid grid-cols-2 p-4 gap-4">
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">SKU</span>
+<span class="font-data-label text-data-label font-bold">PH-PARA-500-X100</span>
+</div>
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">Strength</span>
+<span class="font-body-md text-body-md font-bold">500mg</span>
+</div>
+</div>
+<div class="grid grid-cols-2 p-4 gap-4">
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">Form</span>
+<span class="font-body-md text-body-md">Film-coated Tablet</span>
+</div>
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">Pack Count</span>
+<span class="font-body-md text-body-md">100 (10x10 Blisters)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 p-4 gap-4">
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">Category</span>
+<span class="font-body-md text-body-md underline cursor-pointer text-primary">General Sales List</span>
+</div>
+<div>
+<span class="block text-on-surface-variant font-data-label text-data-label uppercase mb-1">Certifications</span>
+<div class="flex gap-2 mt-1">
+<span class="material-symbols-outlined text-secondary text-[18px]" title="FDA Approved">verified</span>
+<span class="material-symbols-outlined text-secondary text-[18px]" title="GMP Certified">gpp_good</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Procurement Block -->
+<div class="bg-surface-container-high p-6 rounded-xl space-y-6">
+<div>
+<label class="block text-on-surface-variant font-data-label text-data-label uppercase mb-3">Order Quantity (Boxes)</label>
+<div class="flex items-center w-full bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden">
+<button class="px-4 py-3 hover:bg-surface-variant transition-colors flex items-center justify-center" onclick="changeQty(-1)">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<input class="flex-1 text-center bg-transparent border-none focus:ring-0 font-headline-sm text-headline-sm" id="qty-input" min="1" type="number" value="1"/>
+<button class="px-4 py-3 hover:bg-surface-variant transition-colors flex items-center justify-center" onclick="changeQty(1)">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary text-on-primary py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-on-primary-fixed-variant transition-all flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined transition-transform group-active:scale-90">shopping_cart</span>
+              Add to Procurement List
+            </button>
+<button class="w-full border-2 border-secondary text-secondary py-4 rounded-lg font-headline-sm text-headline-sm hover:bg-secondary-container transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">chat</span>
+              Order on WhatsApp
+            </button>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm text-center">
+            Estimated Delivery: <span class="font-semibold text-on-surface">2-3 Business Days</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Details Tabs Section -->
+<div class="mt-20 border-t border-outline-variant pt-12">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<section class="space-y-4">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">description</span>
+            Product Description
+          </h3>
+<p class="text-on-surface-variant font-body-md text-body-md leading-relaxed">
+            A fast-acting analgesic for the treatment of mild to moderate pain including headache, migraine, neuralgia, toothache, sore throat, and period pain. Effectively reduces fever associated with colds and influenza. Formulated for high bioavailability and minimal gastrointestinal irritation.
+          </p>
+</section>
+<section class="space-y-4">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">medical_information</span>
+            Clinical Guidance
+          </h3>
+<ul class="text-on-surface-variant font-body-sm text-body-sm space-y-2 list-disc pl-4">
+<li>Adult dosage: 500mg-1000mg every 4-6 hours.</li>
+<li>Maximum daily dose: 4000mg in 24 hours.</li>
+<li>Contraindicated in patients with severe hepatic impairment.</li>
+<li>Avoid concomitant use with other paracetamol-containing products.</li>
+</ul>
+</section>
+<section class="space-y-4">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">inventory</span>
+            Storage &amp; Handling
+          </h3>
+<div class="p-4 bg-surface-container-low rounded-lg space-y-2">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Temperature:</span>
+<span class="font-medium">Store below 25°C</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Humidity:</span>
+<span class="font-medium">Keep in a dry place</span>
+</div>
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Shelf Life:</span>
+<span class="font-medium">36 Months from DOM</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant mt-20">
+<div class="w-full py-12 px-gutter max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="space-y-4">
+<span class="font-headline-sm text-headline-sm text-primary">PharmDirect</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The leading digital gateway for wholesale medical procurement. Sterile, secure, and reliable supply chain management.</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase mb-2">Company</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Contact Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase mb-2">Legal</span>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Certifications</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Compliance</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">B2B Portal</a>
+</div>
+</div>
+<div class="flex flex-col justify-between items-start md:items-end">
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</button>
+</div>
+<p class="font-data-label text-data-label text-on-surface-variant mt-4 md:mt-0">© 2024 PharmDirect Medical Wholesale. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+    function changeQty(delta) {
+      const input = document.getElementById('qty-input');
+      let val = parseInt(input.value) || 1;
+      val = Math.max(1, val + delta);
+      input.value = val;
+    }
+
+    // Micro-interaction for primary button
+    document.querySelector('.group-active\\:scale-90')?.parentElement.addEventListener('mousedown', function() {
+      this.classList.add('scale-[0.98]');
+    });
+    document.querySelector('.group-active\\:scale-90')?.parentElement.addEventListener('mouseup', function() {
+      this.classList.remove('scale-[0.98]');
+    });
+    document.querySelector('.group-active\\:scale-90')?.parentElement.addEventListener('mouseleave', function() {
+      this.classList.remove('scale-[0.98]');
+    });
+  </script>
+</body></html>

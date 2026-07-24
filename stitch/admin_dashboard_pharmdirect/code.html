@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard | PharmDirect B2B</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#006f64",
+                    "primary-container": "#0f52ba",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#6df5e1",
+                    "surface-container-low": "#eff4ff",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "surface-container": "#e5eeff",
+                    "surface-container-high": "#dce9ff",
+                    "on-tertiary-container": "#ffc0a7",
+                    "surface-variant": "#d3e4fe",
+                    "outline": "#737784",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#1d59c1",
+                    "inverse-primary": "#b0c6ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#bcceff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#005048",
+                    "background": "#f8f9ff",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-secondary-fixed": "#00201c",
+                    "primary": "#003c90",
+                    "inverse-surface": "#213145",
+                    "outline-variant": "#c3c6d5",
+                    "on-primary-fixed": "#001945",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d9e2ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-surface-variant": "#434653",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#006b5f",
+                    "secondary-fixed": "#71f8e4",
+                    "surface-bright": "#f8f9ff",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface": "#0b1c30",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface-container-highest": "#d3e4fe",
+                    "tertiary-container": "#993900",
+                    "tertiary": "#732900",
+                    "on-primary-fixed-variant": "#00419c",
+                    "on-error": "#ffffff",
+                    "on-background": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "24px",
+                    "gutter": "24px",
+                    "stack-sm": "4px",
+                    "stack-md": "12px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "data-label": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "headline-md-mobile": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "data-label": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            overflow-x: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #dce9ff;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="fixed h-screen left-0 w-64 bg-surface-container dark:bg-surface-container-high flex flex-col p-4 gap-stack-md border-r border-outline-variant z-50">
+<div class="mb-8 px-4">
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Admin Panel</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Inventory Management</p>
+</div>
+<nav class="flex flex-col gap-2">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-base bg-primary-container text-on-primary-container rounded-lg px-4 py-3 scale-95 duration-100 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-data-label text-data-label uppercase">Dashboard</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-data-label text-data-label uppercase">Products</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-data-label text-data-label uppercase">Categories</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-variant rounded-lg px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-data-label text-data-label uppercase">Excel Import</span>
+</a>
+</nav>
+<div class="mt-auto p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">JD</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold">Admin User</p>
+<p class="text-[10px] uppercase font-data-label text-on-surface-variant">System Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- Header / TopNavBar Placeholder context -->
+<header class="h-16 flex items-center justify-between px-gutter bg-surface sticky top-0 z-40 border-b border-outline-variant">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Overview</h2>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<div class="p-gutter space-y-gutter max-w-container-max mx-auto w-full">
+<!-- Quick Actions Banner -->
+<section class="flex flex-col md:flex-row items-center justify-between gap-gutter p-6 glass-panel rounded-xl shadow-sm">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Welcome back, Admin</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Your inventory is currently at 94% availability capacity.</p>
+</div>
+<div class="flex gap-stack-md">
+<button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-lg font-body-md text-body-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Add Product
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-secondary-container text-on-secondary-container rounded-lg font-body-md text-body-md hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+                        Import Excel
+                    </button>
+</div>
+</section>
+<!-- Summary Statistics Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Total Products -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl shadow-[0px_4px_12px_rgba(15,82,186,0.05)] transition-transform hover:-translate-y-1 duration-200">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-fixed-dim rounded-lg text-on-primary-fixed">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+<span class="font-data-label text-data-label text-secondary">+12% vs LW</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-wider">Total Products</p>
+<p class="font-display-lg text-display-lg text-primary">1,482</p>
+</div>
+<!-- Active Products -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl shadow-[0px_4px_12px_rgba(15,82,186,0.05)] transition-transform hover:-translate-y-1 duration-200">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-data-label text-data-label text-on-secondary-container">92% Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-wider">Active Products</p>
+<p class="font-display-lg text-display-lg text-on-surface">1,364</p>
+</div>
+<!-- Inactive Products -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl shadow-[0px_4px_12px_rgba(15,82,186,0.05)] transition-transform hover:-translate-y-1 duration-200">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-variant rounded-lg text-outline">
+<span class="material-symbols-outlined">block</span>
+</div>
+<span class="font-data-label text-data-label text-error">Critical Action</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-wider">Inactive Products</p>
+<p class="font-display-lg text-display-lg text-on-surface">118</p>
+</div>
+<!-- Total Categories -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl shadow-[0px_4px_12px_rgba(15,82,186,0.05)] transition-transform hover:-translate-y-1 duration-200">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-container-high rounded-lg text-primary">
+<span class="material-symbols-outlined">category</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-wider">Total Categories</p>
+<p class="font-display-lg text-display-lg text-on-surface">42</p>
+</div>
+</section>
+<!-- Main Data View: Recent Updates & Visuals -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Recent Updates List -->
+<div class="lg:col-span-2 glass-panel rounded-xl flex flex-col h-full overflow-hidden">
+<div class="p-gutter border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest/50">
+<h3 class="font-headline-sm text-headline-sm text-primary">Recent Updates</h3>
+<button class="text-primary font-data-label text-data-label hover:underline">VIEW ALL</button>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low sticky top-0">
+<tr>
+<th class="px-gutter py-3 font-data-label text-data-label text-on-surface-variant border-b border-outline-variant">Product Name</th>
+<th class="px-gutter py-3 font-data-label text-data-label text-on-surface-variant border-b border-outline-variant">Action</th>
+<th class="px-gutter py-3 font-data-label text-data-label text-on-surface-variant border-b border-outline-variant">Timestamp</th>
+<th class="px-gutter py-3 font-data-label text-data-label text-on-surface-variant border-b border-outline-variant text-right">User</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Amoxicillin 500mg</span>
+<span class="font-data-label text-[10px] text-outline">SKU: AMX-500-CP</span>
+</div>
+</td>
+<td class="px-gutter py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-data-label text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-secondary-container"></span> STOCK UPDATE
+                                        </span>
+</td>
+<td class="px-gutter py-4 font-body-sm text-body-sm text-on-surface-variant">10:45 AM Today</td>
+<td class="px-gutter py-4 text-right font-body-sm text-body-sm font-medium">J. Smith</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Paracetamol BP</span>
+<span class="font-data-label text-[10px] text-outline">SKU: PCM-BP-500</span>
+</div>
+</td>
+<td class="px-gutter py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-variant text-on-surface-variant font-data-label text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> METADATA EDIT
+                                        </span>
+</td>
+<td class="px-gutter py-4 font-body-sm text-body-sm text-on-surface-variant">09:12 AM Today</td>
+<td class="px-gutter py-4 text-right font-body-sm text-body-sm font-medium">System</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Ventolin Inhaler</span>
+<span class="font-data-label text-[10px] text-outline">SKU: GSK-VENT-100</span>
+</div>
+</td>
+<td class="px-gutter py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-data-label text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> NEW PRODUCT
+                                        </span>
+</td>
+<td class="px-gutter py-4 font-body-sm text-body-sm text-on-surface-variant">Yesterday</td>
+<td class="px-gutter py-4 text-right font-body-sm text-body-sm font-medium">M. Chen</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-gutter py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-semibold text-primary">Insulin Glargine</span>
+<span class="font-data-label text-[10px] text-outline">SKU: SNF-INS-G</span>
+</div>
+</td>
+<td class="px-gutter py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-error-container text-on-error-container font-data-label text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> PRICE CHANGE
+                                        </span>
+</td>
+<td class="px-gutter py-4 font-body-sm text-body-sm text-on-surface-variant">Yesterday</td>
+<td class="px-gutter py-4 text-right font-body-sm text-body-sm font-medium">J. Smith</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Warehouse Visual Card -->
+<div class="flex flex-col gap-gutter">
+<div class="h-64 rounded-xl overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="A clean, sterile, high-tech pharmaceutical warehouse facility with organized stainless steel shelving and cold-storage units. The lighting is bright, cool, and clinical, emphasizing a blue and white color palette. The floor is polished and reflective, showing a high level of efficiency and modern medical inventory management. Minimalist-Functional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQnzIvwZxbaQOa8Av9444KFa60DLKl4vPE8TPJ2SeB6njntJYE_qZjSwjAKPwphmPZNZpNUZbnzKmkW1PeSwYXrM8mdWUfqbitPgT2KwDagEISFEBifhtK-97cboTZzKoPaa7YgLzly2DMj2AIgj1JTZQP68DClEMqzmeh8stGMvVSD-tcAHK4TYSsaqkzBN5LxLp5mdp6d6cqlES1NAK9qhn2oFPQfOcU-c_lFl9rSaAk-Em9wAMkTk8KWcJ2ZK6nhDng1PTC3i4f"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-6">
+<span class="font-data-label text-[10px] text-primary-fixed uppercase tracking-widest mb-1">Live View</span>
+<h4 class="font-headline-sm text-headline-sm text-on-primary">Primary Logistics Hub</h4>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl space-y-4">
+<h4 class="font-headline-sm text-headline-sm text-on-surface border-b border-outline-variant pb-2">Admin Quick Links</h4>
+<ul class="space-y-3">
+<li>
+<a class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span>Download Inventory Report</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span>Manage FDA Certifications</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</li>
+<li>
+<a class="flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span>Supplier Contact Directory</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Anchor -->
+<footer class="mt-auto border-t border-outline-variant bg-surface-container-lowest dark:bg-surface-dim">
+<div class="w-full py-12 px-gutter max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="space-y-4">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">PharmDirect B2B</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Authoritative medical wholesale solutions for global healthcare providers. Sterile, efficient, and direct.</p>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-data-label text-data-label uppercase text-outline mb-2">Internal Resources</span>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Contact Us</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col justify-between items-end">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-data-label text-[10px] uppercase">ISO 9001 Certified</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-right">© 2024 PharmDirect Medical Wholesale. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interactions for table rows and buttons
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.classList.add('scale-[0.995]');
+            });
+            row.addEventListener('mouseup', () => {
+                row.classList.remove('scale-[0.995]');
+            });
+        });
+
+        // Add Product Button Interaction
+        const addBtn = document.querySelector('button:contains("Add Product")');
+        if(addBtn) {
+            addBtn.addEventListener('click', () => {
+                console.log('Opening Add Product Modal');
+                // Interaction logic would go here
+            });
+        }
+    </script>
+</body></html>
