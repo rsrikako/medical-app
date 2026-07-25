@@ -58,13 +58,13 @@ ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE store_settings ENABLE ROW LEVEL SECURITY;
 
-DROP POLICY IF EXISTS "Public read access on categories" ON categories;
-DROP POLICY IF EXISTS "Public read access on products" ON products;
-DROP POLICY IF EXISTS "Public read access on store_settings" ON store_settings;
+DROP POLICY IF EXISTS "Public access on categories" ON categories;
+DROP POLICY IF EXISTS "Public access on products" ON products;
+DROP POLICY IF EXISTS "Public access on store_settings" ON store_settings;
 
-CREATE POLICY "Public read access on categories" ON categories FOR SELECT USING (true);
-CREATE POLICY "Public read access on products" ON products FOR SELECT USING (true);
-CREATE POLICY "Public read access on store_settings" ON store_settings FOR SELECT USING (true);
+CREATE POLICY "Public access on categories" ON categories FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Public access on products" ON products FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Public access on store_settings" ON store_settings FOR ALL USING (true) WITH CHECK (true);
 
 INSERT INTO categories (id, name, slug, display_order, status, created_at, updated_at)
 VALUES

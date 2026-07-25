@@ -134,13 +134,23 @@ export default function AdminImportPage() {
               Get the pre-formatted spreadsheet template containing required column headers: <code className="font-mono text-primary bg-surface-container px-1 py-0.5 rounded">sku, product_name, category, brand, strength, form, pack_count, description, status</code>
             </p>
           </div>
-          <button
-            onClick={generateExcelTemplate}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-container text-primary font-bold text-xs rounded-lg hover:bg-surface-container-high transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            <span>Download Template (.xlsx)</span>
-          </button>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => generateExcelTemplate([], [], 'medical_catalog_import_template.xlsx')}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-container text-primary font-bold text-xs rounded-lg hover:bg-surface-container-high transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Template (.xlsx)</span>
+            </button>
+            <button
+              onClick={() => generateExcelTemplate(existingProducts, existingCategories, 'medical_catalog_current_products.xlsx')}
+              disabled={loadingInitial || existingProducts.length === 0}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white font-bold text-xs rounded-lg hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Current Catalog (.xlsx)</span>
+            </button>
+          </div>
         </div>
 
         {/* Upload Excel Box */}

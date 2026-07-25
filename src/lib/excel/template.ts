@@ -1,7 +1,24 @@
 import * as XLSX from 'xlsx'
+import type { Product, Category } from '@/types'
 
-export function generateExcelTemplate(): void {
-  const sampleData = [
+function buildExportRows(products: Product[] = [], categories: Category[] = []) {
+  const categoryNameMap = new Map(categories.map((category) => [category.id, category.name]))
+
+  if (products.length > 0) {
+    return products.map((product) => ({
+      sku: product.sku,
+      product_name: product.name,
+      category: product.categoryName || categoryNameMap.get(product.categoryId) || '',
+      brand: product.brand || '',
+      strength: product.strength || '',
+      form: product.form || '',
+      pack_count: product.packCount || '',
+      description: product.description || '',
+      status: product.status || 'active',
+    }))
+  }
+
+  return [
     {
       sku: 'PCM500-10',
       product_name: 'Paracetamol 500mg',
@@ -36,23 +53,25 @@ export function generateExcelTemplate(): void {
       status: 'active',
     },
   ]
+}
 
-  const worksheet = XLSX.utils.json_to_sheet(sampleData)
+export function generateExcelTemplate(products: Product[] = [], categories: Category[] = [], filename = 'medical_catalog_import_template.xlsx'): void {
+  const rows = buildExportRows(products, categories)
+  const worksheet = XLSX.utils.json_to_sheet(rows)
   const workbook = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'ProductCatalogTemplate')
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'ProductCatalog')
 
-  // Set column widths for readability
   worksheet['!cols'] = [
-    { wch: 15 }, // sku
-    { wch: 25 }, // product_name
-    { wch: 15 }, // category
-    { wch: 20 }, // brand
-    { wch: 12 }, // strength
-    { wch: 12 }, // form
-    { wch: 15 }, // pack_count
-    { wch: 30 }, // description
-    { wch: 10 }, // status
+    { wch: 15 },
+    { wch: 25 },
+    { wch: 15 },
+    { wch: 20 },
+    { wch: 12 },
+    { wch: 12 },
+    { wch: 15 },
+    { wch: 30 },
+    { wch: 10 },
   ]
 
-  XLSX.writeFile(workbook, 'medical_catalog_import_template.xlsx')
+  XLSX.writeFile(workbook, filename)
 }
