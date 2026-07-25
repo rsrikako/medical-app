@@ -10,7 +10,7 @@ export default function AdminLoginPage() {
   const { login } = useAuth()
 
   const [email, setEmail] = useState('admin@srisubrahmanyaagencies.com')
-  const [password, setPassword] = useState('admin123')
+  const [password, setPassword] = useState('Subpharma@2025')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="clinical-input pl-10"
-                  placeholder="admin@srisubrahmanyaagencies.com"
+                  placeholder="Enter your email"
                 />
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="clinical-input pl-10"
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                 />
               </div>
             </div>
@@ -102,15 +102,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Quick Demo Credentials Info Box */}
-          <div className="mt-8 pt-6 border-t border-surface-container text-xs text-on-surface-variant">
-            <span className="font-bold text-primary block mb-1">Demo Admin Credentials:</span>
-            <div className="bg-surface-container-low p-2.5 rounded font-mono text-[11px] space-y-0.5 border border-surface-container">
-              <div>Email: admin@srisubrahmanyaagencies.com</div>
-              <div>Password: admin123</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
