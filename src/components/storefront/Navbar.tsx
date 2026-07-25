@@ -38,8 +38,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Main Header Nav */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-between min-h-16 gap-4 py-3 sm:py-0">
           {/* Logo / Company Name */}
           <Link href="/" className="flex items-center space-x-3 shrink-0">
             <div className="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-white shadow-sm">
@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Search Bar (Mobile & Desktop) */}
           {setSearchQuery && (
-            <div className="flex-1 max-w-xl mx-2 sm:mx-4">
+            <div className="w-full order-last sm:order-none sm:flex-1 sm:max-w-xl mx-0 sm:mx-4">
               <div className="relative">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-outline" />
                 <input
