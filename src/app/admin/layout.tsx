@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-bold text-on-surface block leading-tight">PharmDirect Admin</span>
+                <span className="text-sm font-bold text-on-surface block leading-tight">Sri Subrahmanya Agencies Admin</span>
                 <span className="text-[10px] font-mono text-secondary uppercase font-semibold block">Catalog Backoffice</span>
               </div>
             </div>

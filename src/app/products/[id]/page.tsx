@@ -21,7 +21,7 @@ export default function ProductDetailPage() {
 
   const [product, setProduct] = useState<Product | null>(null)
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'PharmDirect Wholesale',
+    businessName: 'Sri Subrahmanya Agencies',
     whatsappNumber: '919876543210',
     contactPhone: '+91 98765 43210',
   })

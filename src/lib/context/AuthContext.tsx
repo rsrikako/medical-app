@@ -48,8 +48,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsDemoAdmin(false)
       if (typeof window !== 'undefined') localStorage.removeItem('pharmdirect_demo_admin')
     } catch (err: any) {
-      // Fallback for demo login if firebase auth fails (e.g., admin@pharmdirect.com / admin123)
-      if (email.toLowerCase() === 'admin@pharmdirect.com' && pass === 'admin123') {
+      // Fallback for demo login if firebase auth fails (e.g., admin@srisubrahmanyaagencies.com / admin123)
+      if (email.toLowerCase() === 'admin@srisubrahmanyaagencies.com' && pass === 'admin123') {
         setIsDemoAdmin(true)
         if (typeof window !== 'undefined') localStorage.setItem('pharmdirect_demo_admin', 'true')
       } else {

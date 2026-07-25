@@ -7,7 +7,7 @@ import { Save, Check, Building2, Phone, MessageSquare } from 'lucide-react'
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'PharmDirect Wholesale',
+    businessName: 'Sri Subrahmanya Agencies',
     whatsappNumber: '919876543210',
     contactPhone: '+91 98765 43210',
     logoUrl: '',

@@ -140,8 +140,8 @@ export const INITIAL_PRODUCTS: Product[] = [
 ]
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  businessName: 'PharmDirect Wholesale',
-  whatsappNumber: '919876543210',
-  contactPhone: '+91 98765 43210',
+  businessName: 'Sri Subrahmanya Agencies',
+  whatsappNumber: '919493397176',
+  contactPhone: '+91 94933 97176',
   logoUrl: '',
 }

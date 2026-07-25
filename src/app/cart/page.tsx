@@ -16,7 +16,7 @@ import {
 export default function CartPage() {
   const { cart, updateQuantity, removeItem, clearCart, totalLineItems, totalUnitsCount } = useCart()
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'PharmDirect Wholesale',
+    businessName: 'Sri Subrahmanya Agencies',
     whatsappNumber: '919876543210',
     contactPhone: '+91 98765 43210',
   })

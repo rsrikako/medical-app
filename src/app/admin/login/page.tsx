@@ -9,7 +9,7 @@ export default function AdminLoginPage() {
   const router = useRouter()
   const { login } = useAuth()
 
-  const [email, setEmail] = useState('admin@pharmdirect.com')
+  const [email, setEmail] = useState('admin@srisubrahmanyaagencies.com')
   const [password, setPassword] = useState('admin123')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
           <div className="w-12 h-12 rounded-xl bg-primary-container text-white mx-auto flex items-center justify-center mb-3 shadow-md">
             <Building2 className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-extrabold text-on-surface tracking-tight">PharmDirect Admin Portal</h1>
+          <h1 className="text-2xl font-extrabold text-on-surface tracking-tight">Sri Subrahmanya Agencies Admin Portal</h1>
           <p className="text-xs text-on-surface-variant mt-1">
             Authenticated Catalog & Category Management
           </p>
@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="clinical-input pl-10"
-                  placeholder="admin@pharmdirect.com"
+                  placeholder="admin@srisubrahmanyaagencies.com"
                 />
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
           <div className="mt-8 pt-6 border-t border-surface-container text-xs text-on-surface-variant">
             <span className="font-bold text-primary block mb-1">Demo Admin Credentials:</span>
             <div className="bg-surface-container-low p-2.5 rounded font-mono text-[11px] space-y-0.5 border border-surface-container">
-              <div>Email: admin@pharmdirect.com</div>
+              <div>Email: admin@srisubrahmanyaagencies.com</div>
               <div>Password: admin123</div>
             </div>
           </div>

@@ -12,7 +12,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  businessName = 'PharmDirect Wholesale',
+  businessName = 'Sri Subrahmanya Agencies',
   searchQuery = '',
   setSearchQuery,
 }) => {
