@@ -1,6 +1,5 @@
-import { supabase } from './client'
+import { getSupabaseClient } from './client'
 import { Product, Category, StoreSettings } from '@/types'
-import { INITIAL_CATEGORIES, INITIAL_PRODUCTS, INITIAL_SETTINGS } from '../firebase/mockData'
 
 const LOCAL_PRODUCTS_KEY = 'pharmdirect_products_v1'
 const LOCAL_CATEGORIES_KEY = 'pharmdirect_categories_v1'
@@ -30,8 +29,18 @@ function setStoredLocalData<T>(key: string, data: T): void {
   }
 }
 
+function getSupabaseOrThrow() {
+  const supabase = getSupabaseClient()
+  if (!supabase) {
+    throw new Error('Supabase client is unavailable')
+  }
+  return supabase
+}
+
 // PRODUCTS API
 export async function getProducts(): Promise<Product[]> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -60,13 +69,16 @@ export async function getProducts(): Promise<Product[]> {
       setStoredLocalData(LOCAL_PRODUCTS_KEY, products)
       return products
     }
+    return []
   } catch (err) {
-    console.warn('Supabase getProducts fallback to local:', err)
+    console.error('Supabase getProducts failed:', err)
+    throw err
   }
-  return getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, INITIAL_PRODUCTS)
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { data, error } = await supabase
       .from('products')
@@ -93,14 +105,15 @@ export async function getProductById(id: string): Promise<Product | null> {
         updatedAt: data.updated_at,
       } as Product
     }
+    return null
   } catch (err) {
-    console.warn('Supabase getProductById fallback to local:', err)
+    console.error('Supabase getProductById failed:', err)
+    throw err
   }
-  const products = getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, INITIAL_PRODUCTS)
-  return products.find(p => p.id === id) || null
 }
 
 export async function saveProduct(product: Partial<Product> & { sku: string; name: string }): Promise<Product> {
+  const supabase = getSupabaseOrThrow()
   const now = new Date().toISOString()
   let savedProduct: Product
 
@@ -135,7 +148,8 @@ export async function saveProduct(product: Partial<Product> & { sku: string; nam
 
       if (error) throw error
     } catch (err) {
-      console.warn('Supabase update fallback:', err)
+      console.error('Supabase update product failed:', err)
+      throw err
     }
   } else {
     // Create new
@@ -159,12 +173,13 @@ export async function saveProduct(product: Partial<Product> & { sku: string; nam
 
       if (error) throw error
     } catch (err) {
-      console.warn('Supabase insert fallback:', err)
+      console.error('Supabase insert product failed:', err)
+      throw err
     }
   }
 
   // Update local cache
-  const localProducts = getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, INITIAL_PRODUCTS)
+  const localProducts = getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, [] as Product[])
   const existingIdx = localProducts.findIndex(p => p.id === savedProduct.id || p.sku === savedProduct.sku)
   if (existingIdx >= 0) {
     localProducts[existingIdx] = savedProduct
@@ -177,6 +192,8 @@ export async function saveProduct(product: Partial<Product> & { sku: string; nam
 }
 
 export async function deleteProduct(id: string): Promise<void> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { error } = await supabase
       .from('products')
@@ -185,15 +202,18 @@ export async function deleteProduct(id: string): Promise<void> {
 
     if (error) throw error
   } catch (err) {
-    console.warn('Supabase delete fallback:', err)
+    console.error('Supabase delete product failed:', err)
+    throw err
   }
-  const localProducts = getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, INITIAL_PRODUCTS)
+  const localProducts = getStoredLocalData<Product[]>(LOCAL_PRODUCTS_KEY, [] as Product[])
   const updated = localProducts.filter(p => p.id !== id)
   setStoredLocalData(LOCAL_PRODUCTS_KEY, updated)
 }
 
 // CATEGORIES API
 export async function getCategories(): Promise<Category[]> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { data, error } = await supabase
       .from('categories')
@@ -215,13 +235,15 @@ export async function getCategories(): Promise<Category[]> {
       setStoredLocalData(LOCAL_CATEGORIES_KEY, categories)
       return categories
     }
+    return []
   } catch (err) {
-    console.warn('Supabase getCategories fallback:', err)
+    console.error('Supabase getCategories failed:', err)
+    throw err
   }
-  return getStoredLocalData<Category[]>(LOCAL_CATEGORIES_KEY, INITIAL_CATEGORIES)
 }
 
 export async function saveCategory(category: Partial<Category> & { name: string }): Promise<Category> {
+  const supabase = getSupabaseOrThrow()
   const now = new Date().toISOString()
   const slug = category.slug || category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   let savedCategory: Category
@@ -250,7 +272,8 @@ export async function saveCategory(category: Partial<Category> & { name: string 
 
       if (error) throw error
     } catch (err) {
-      console.warn('Supabase update category fallback:', err)
+      console.error('Supabase update category failed:', err)
+      throw err
     }
   } else {
     const id = 'cat-' + Date.now()
@@ -275,11 +298,12 @@ export async function saveCategory(category: Partial<Category> & { name: string 
 
       if (error) throw error
     } catch (err) {
-      console.warn('Supabase insert category fallback:', err)
+      console.error('Supabase insert category failed:', err)
+      throw err
     }
   }
 
-  const localCategories = getStoredLocalData<Category[]>(LOCAL_CATEGORIES_KEY, INITIAL_CATEGORIES)
+  const localCategories = getStoredLocalData<Category[]>(LOCAL_CATEGORIES_KEY, [] as Category[])
   const idx = localCategories.findIndex(c => c.id === savedCategory.id)
   if (idx >= 0) {
     localCategories[idx] = savedCategory
@@ -292,6 +316,8 @@ export async function saveCategory(category: Partial<Category> & { name: string 
 }
 
 export async function deleteCategory(id: string): Promise<void> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { error } = await supabase
       .from('categories')
@@ -300,15 +326,18 @@ export async function deleteCategory(id: string): Promise<void> {
 
     if (error) throw error
   } catch (err) {
-    console.warn('Supabase delete category fallback:', err)
+    console.error('Supabase delete category failed:', err)
+    throw err
   }
-  const localCategories = getStoredLocalData<Category[]>(LOCAL_CATEGORIES_KEY, INITIAL_CATEGORIES)
+  const localCategories = getStoredLocalData<Category[]>(LOCAL_CATEGORIES_KEY, [] as Category[])
   const updated = localCategories.filter(c => c.id !== id)
   setStoredLocalData(LOCAL_CATEGORIES_KEY, updated)
 }
 
 // SETTINGS API
 export async function getStoreSettings(): Promise<StoreSettings> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const { data, error } = await supabase
       .from('store_settings')
@@ -325,13 +354,15 @@ export async function getStoreSettings(): Promise<StoreSettings> {
         logoUrl: data.logo_url,
       } as StoreSettings
     }
+    throw new Error('No store settings found in Supabase')
   } catch (err) {
-    console.warn('Supabase getStoreSettings fallback:', err)
+    console.error('Supabase getStoreSettings failed:', err)
+    throw err
   }
-  return getStoredLocalData<StoreSettings>(LOCAL_SETTINGS_KEY, INITIAL_SETTINGS)
 }
 
 export async function saveStoreSettings(settings: StoreSettings): Promise<StoreSettings> {
+  const supabase = getSupabaseOrThrow()
   const dbData = {
     business_name: settings.businessName,
     whatsapp_number: settings.whatsappNumber,
@@ -361,16 +392,17 @@ export async function saveStoreSettings(settings: StoreSettings): Promise<StoreS
       setStoredLocalData(LOCAL_SETTINGS_KEY, result)
       return result
     }
+    throw new Error('Supabase did not return store settings data')
   } catch (err) {
-    console.warn('Supabase saveStoreSettings fallback:', err)
+    console.error('Supabase saveStoreSettings failed:', err)
+    throw err
   }
-
-  setStoredLocalData(LOCAL_SETTINGS_KEY, settings)
-  return settings
 }
 
 // FILE UPLOAD API
 export async function uploadProductImage(file: File): Promise<string> {
+  const supabase = getSupabaseOrThrow()
+
   try {
     const fileName = `product-images/${Date.now()}_${file.name}`
     const { error, data } = await supabase.storage
@@ -389,12 +421,7 @@ export async function uploadProductImage(file: File): Promise<string> {
 
     return publicData?.publicUrl || ''
   } catch (err) {
-    console.warn('Supabase Storage upload failed, creating base64 data URL fallback:', err)
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = reject
-      reader.readAsDataURL(file)
-    })
+    console.error('Supabase Storage upload failed:', err)
+    throw err
   }
 }
