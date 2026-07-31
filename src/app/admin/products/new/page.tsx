@@ -22,6 +22,7 @@ export default function AdminNewProductPage() {
     strength: '',
     form: 'Tablet',
     packCount: '',
+    mrp: '',
     description: '',
     imageUrl: '',
     status: 'active' as 'active' | 'inactive',
@@ -86,6 +87,12 @@ export default function AdminNewProductPage() {
       return
     }
 
+    const parsedMrp = formData.mrp ? parseFloat(formData.mrp) : undefined
+    if (formData.mrp && (isNaN(parsedMrp!) || parsedMrp! < 0)) {
+      setError('MRP must be a valid positive number')
+      return
+    }
+
     setSubmitting(true)
 
     try {
@@ -105,6 +112,7 @@ export default function AdminNewProductPage() {
         strength: formData.strength.trim(),
         form: formData.form.trim(),
         packCount: formData.packCount.trim(),
+        mrp: parsedMrp,
         description: formData.description.trim(),
         imageUrl: finalImageUrl,
         status: formData.status,
@@ -217,10 +225,25 @@ export default function AdminNewProductPage() {
               <input
                 type="text"
                 required
-                placeholder="e.g. 10 Tablets, 20 Capsules, 100ml"
+                placeholder="e.g. 10 Tablets"
                 value={formData.packCount}
                 onChange={(e) => setFormData({ ...formData, packCount: e.target.value })}
                 className="clinical-input"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-on-surface uppercase tracking-wider mb-1">
+                MRP (₹) <span className="text-outline font-normal text-[10px]">(Max Retail Price)</span>
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                placeholder="e.g. 150.00"
+                value={formData.mrp}
+                onChange={(e) => setFormData({ ...formData, mrp: e.target.value })}
+                className="clinical-input font-mono"
               />
             </div>
 

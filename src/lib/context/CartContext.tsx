@@ -71,6 +71,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
           brand: product.brand,
           strength: product.strength,
           packCount: product.packCount,
+          mrp: product.mrp,
           quantity,
           imageUrl: product.imageUrl,
         },

@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { generateExcelTemplate } from '@/lib/excel/template'
 import { parseExcelFile, validateExcelRows } from '@/lib/excel/importer'
-import { getProducts, getCategories, saveProduct } from '@/lib/supabase/services'
+import { getProducts, getCategories, saveProduct, deleteProduct } from '@/lib/supabase/services'
 import { ExcelValidationResult, Product, Category } from '@/types'
 import { 
   Download, Upload, FileSpreadsheet, AlertTriangle, 
-  CheckCircle2, XCircle, RefreshCw, ArrowRight, ShieldCheck 
+  CheckCircle2, XCircle, RefreshCw, ArrowRight, ShieldCheck, Trash2 
 } from 'lucide-react'
 
 export default function AdminImportPage() {
@@ -23,7 +23,7 @@ export default function AdminImportPage() {
 
   const [validationResults, setValidationResults] = useState<ExcelValidationResult[]>([])
   const [importCompleted, setImportCompleted] = useState(false)
-  const [importedStats, setImportedStats] = useState({ created: 0, updated: 0 })
+  const [importedStats, setImportedStats] = useState({ created: 0, updated: 0, deleted: 0 })
 
   useEffect(() => {
     async function loadCatalog() {
@@ -63,14 +63,22 @@ export default function AdminImportPage() {
   const createCount = validRows.filter((r) => !r.isUpdate).length
   const updateCount = validRows.filter((r) => r.isUpdate).length
 
+  // Find existing products that are NOT present in the valid uploaded rows (by SKU)
+  const validFileSkus = new Set(validRows.map((r) => r.row.sku.toLowerCase()))
+  const missingProductsToDelete = existingProducts.filter(
+    (p) => !validFileSkus.has(p.sku.toLowerCase())
+  )
+
   const handleExecuteImport = async () => {
     if (validRows.length === 0) return
     setImporting(true)
 
     let created = 0
     let updated = 0
+    let deleted = 0
 
     try {
+      // 1. Process Add & Update
       for (const res of validRows) {
         const row = res.row
         const matchedCategory = existingCategories.find(
@@ -91,6 +99,7 @@ export default function AdminImportPage() {
           strength: row.strength || '',
           form: row.form || 'Tablet',
           packCount: row.pack_count,
+          mrp: row.mrp,
           description: row.description || '',
           status: row.status,
         })
@@ -102,7 +111,13 @@ export default function AdminImportPage() {
         }
       }
 
-      setImportedStats({ created, updated })
+      // 2. Process Delete for missing products
+      for (const prodToDelete of missingProductsToDelete) {
+        await deleteProduct(prodToDelete.id)
+        deleted++
+      }
+
+      setImportedStats({ created, updated, deleted })
       setImportCompleted(true)
     } catch (err) {
       alert('An error occurred during bulk import write.')
@@ -181,9 +196,9 @@ export default function AdminImportPage() {
       {importCompleted && (
         <div className="clinical-card p-8 bg-teal-50 border-2 border-teal-300 text-teal-900 text-center">
           <CheckCircle2 className="w-16 h-16 text-teal-600 mx-auto mb-3" />
-          <h2 className="text-xl font-bold mb-2">Excel Import Completed Successfully!</h2>
+          <h2 className="text-xl font-bold mb-2">Excel Import & Sync Completed Successfully!</h2>
           <p className="text-xs text-teal-800 mb-6">
-            Processed batch writes: <strong className="font-mono">{importedStats.created} Products Created</strong>, <strong className="font-mono">{importedStats.updated} Products Updated</strong>.
+            Processed batch writes: <strong className="font-mono">{importedStats.created} Created</strong>, <strong className="font-mono">{importedStats.updated} Updated</strong>, <strong className="font-mono">{importedStats.deleted} Deleted (Missing from file)</strong>.
           </p>
           <button
             onClick={() => router.push('/admin/products')}
@@ -199,7 +214,7 @@ export default function AdminImportPage() {
       {validationResults.length > 0 && !importCompleted && (
         <div className="space-y-6">
           {/* Summary Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
             <div className="clinical-card p-4">
               <span className="text-[11px] font-bold text-outline uppercase block">Total Rows</span>
               <span className="text-2xl font-bold font-mono text-on-surface">{validationResults.length}</span>
@@ -214,11 +229,33 @@ export default function AdminImportPage() {
                 {createCount} New / {updateCount} Update
               </span>
             </div>
+            <div className="clinical-card p-4 border-l-4 border-amber-500">
+              <span className="text-[11px] font-bold text-amber-700 uppercase block">To Delete (Missing)</span>
+              <span className="text-2xl font-bold font-mono text-amber-700">{missingProductsToDelete.length}</span>
+            </div>
             <div className="clinical-card p-4 border-l-4 border-error">
               <span className="text-[11px] font-bold text-error uppercase block">Invalid Errors</span>
               <span className="text-2xl font-bold font-mono text-error">{invalidRows.length}</span>
             </div>
           </div>
+
+          {/* Missing Products Warning Banner */}
+          {missingProductsToDelete.length > 0 && (
+            <div className="clinical-card p-4 border-l-4 border-amber-500 bg-amber-50/60 flex items-start gap-3">
+              <Trash2 className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+              <div>
+                <h4 className="text-xs font-bold text-amber-900">
+                  {missingProductsToDelete.length} existing product(s) in catalog are missing from this spreadsheet
+                </h4>
+                <p className="text-[11px] text-amber-800 mt-0.5">
+                  Confirming import will sync your catalog by deleting these missing items: {' '}
+                  <span className="font-mono font-semibold">
+                    {missingProductsToDelete.map((p) => `${p.sku} (${p.name})`).join(', ')}
+                  </span>
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Invalid Rows Errors Inspection */}
           {invalidRows.length > 0 && (

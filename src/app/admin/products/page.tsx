@@ -177,6 +177,7 @@ export default function AdminProductsPage() {
                 <th className="py-3 px-4">Brand</th>
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Pack</th>
+                <th className="py-3 px-4">MRP</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
@@ -184,13 +185,13 @@ export default function AdminProductsPage() {
             <tbody className="divide-y divide-surface-container text-xs">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-outline">
+                  <td colSpan={8} className="py-8 text-center text-outline">
                     Loading catalog items...
                   </td>
                 </tr>
               ) : filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-on-surface-variant">
+                  <td colSpan={8} className="py-8 text-center text-on-surface-variant">
                     No products found matching your filters.
                   </td>
                 </tr>
@@ -229,6 +230,11 @@ export default function AdminProductsPage() {
                     {/* Pack Count */}
                     <td className="py-3 px-4 font-mono text-outline">
                       {p.packCount}
+                    </td>
+
+                    {/* MRP */}
+                    <td className="py-3 px-4 font-mono font-semibold text-on-surface">
+                      {p.mrp !== undefined && p.mrp !== null ? `₹${Number(p.mrp).toFixed(2)}` : '—'}
                     </td>
 
                     {/* Status Toggle Badge */}

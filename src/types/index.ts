@@ -8,6 +8,7 @@ export interface Product {
   packCount: string // e.g. "10 Tablets", "20 Tablets"
   strength?: string // e.g. "500mg"
   form?: string // e.g. "Tablet", "Capsule", "Syrup"
+  mrp?: number // Maximum Retail Price
   description?: string
   imageUrl?: string
   status: 'active' | 'inactive'
@@ -39,6 +40,7 @@ export interface CartItem {
   brand: string
   strength?: string
   packCount: string
+  mrp?: number
   quantity: number
   imageUrl?: string
 }
@@ -60,6 +62,7 @@ export interface ExcelImportRow {
   strength?: string
   form?: string
   pack_count: string
+  mrp?: number
   description?: string
   status: 'active' | 'inactive'
 }

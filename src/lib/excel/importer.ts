@@ -9,17 +9,23 @@ export async function parseExcelFile(file: File): Promise<ExcelImportRow[]> {
 
   const rawRows: any[] = XLSX.utils.sheet_to_json(worksheet, { defval: '' })
 
-  return rawRows.map((r) => ({
-    sku: String(r.sku || r.SKU || '').trim(),
-    product_name: String(r.product_name || r.name || r['Product Name'] || '').trim(),
-    category: String(r.category || r.Category || '').trim(),
-    brand: String(r.brand || r.Brand || '').trim(),
-    strength: String(r.strength || r.Strength || '').trim(),
-    form: String(r.form || r.Form || '').trim(),
-    pack_count: String(r.pack_count || r['Pack Count'] || r.packCount || '').trim(),
-    description: String(r.description || r.Description || '').trim(),
-    status: (String(r.status || r.Status || 'active').toLowerCase().trim() === 'inactive' ? 'inactive' : 'active') as 'active' | 'inactive',
-  }))
+  return rawRows.map((r) => {
+    const rawMrp = r.mrp !== undefined && r.mrp !== '' ? r.mrp : r.MRP !== undefined && r.MRP !== '' ? r.MRP : r['Maximum Retail Price']
+    const parsedMrp = rawMrp !== undefined && rawMrp !== '' ? Number(rawMrp) : undefined
+
+    return {
+      sku: String(r.sku || r.SKU || '').trim(),
+      product_name: String(r.product_name || r.name || r['Product Name'] || '').trim(),
+      category: String(r.category || r.Category || '').trim(),
+      brand: String(r.brand || r.Brand || '').trim(),
+      strength: String(r.strength || r.Strength || '').trim(),
+      form: String(r.form || r.Form || '').trim(),
+      pack_count: String(r.pack_count || r['Pack Count'] || r.packCount || '').trim(),
+      mrp: parsedMrp !== undefined && !isNaN(parsedMrp) ? parsedMrp : undefined,
+      description: String(r.description || r.Description || '').trim(),
+      status: (String(r.status || r.Status || 'active').toLowerCase().trim() === 'inactive' ? 'inactive' : 'active') as 'active' | 'inactive',
+    }
+  })
 }
 
 export function validateExcelRows(
@@ -63,6 +69,10 @@ export function validateExcelRows(
 
     if (!row.pack_count) {
       errors.push(`Row ${rowNum}: Pack count is missing`)
+    }
+
+    if (row.mrp !== undefined && (typeof row.mrp !== 'number' || isNaN(row.mrp) || row.mrp < 0)) {
+      errors.push(`Row ${rowNum}: Invalid MRP (must be a positive number)`)
     }
 
     if (row.status !== 'active' && row.status !== 'inactive') {

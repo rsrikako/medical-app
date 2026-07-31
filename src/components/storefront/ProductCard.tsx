@@ -68,11 +68,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </h3>
 
-          {/* Strength & SKU row */}
+          {/* Strength, MRP & SKU row */}
           <div className="flex items-center justify-between text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
-            {product.strength && (
-              <span className="text-on-surface font-medium">{product.strength}</span>
-            )}
+            <div>
+              {product.strength && (
+                <span className="text-on-surface font-medium block">{product.strength}</span>
+              )}
+              {product.mrp !== undefined && product.mrp !== null && (
+                <span className="text-emerald-700 font-bold text-xs">
+                  MRP: ₹{Number(product.mrp).toFixed(2)}
+                </span>
+              )}
+            </div>
             <span className="text-outline">SKU: {product.sku}</span>
           </div>
         </div>
