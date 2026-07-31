@@ -101,6 +101,12 @@ export default function CartPage() {
                         <span>SKU: {item.sku}</span>
                         <span>•</span>
                         <span>{item.packCount}</span>
+                        {item.mrp !== undefined && item.mrp !== null && (
+                          <>
+                            <span>•</span>
+                            <span className="text-emerald-700 font-bold">MRP: ₹{Number(item.mrp).toFixed(2)}</span>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -161,6 +167,14 @@ export default function CartPage() {
                     <span>Total Order Quantity:</span>
                     <span className="font-mono font-bold text-primary">{totalUnitsCount} Units</span>
                   </div>
+                  {cart.some((i) => i.mrp !== undefined && i.mrp !== null) && (
+                    <div className="flex justify-between text-on-surface-variant">
+                      <span>Total Value (MRP):</span>
+                      <span className="font-mono font-bold text-emerald-700">
+                        ₹{cart.reduce((sum, item) => sum + (item.mrp || 0) * item.quantity, 0).toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-on-surface-variant border-t border-surface-container pt-3">
                     <span>Pricing Information:</span>
                     <span className="font-semibold text-secondary">Finalized via WhatsApp</span>

@@ -285,7 +285,10 @@ export default function CheckoutPage() {
                   <div key={item.productId} className="text-xs bg-surface-container-low p-2.5 rounded-lg">
                     <div className="font-bold text-on-surface line-clamp-1">{item.name}</div>
                     <div className="flex justify-between text-outline mt-1 font-mono text-[11px]">
-                      <span>SKU: {item.sku}</span>
+                      <span>
+                        SKU: {item.sku}
+                        {item.mrp !== undefined && item.mrp !== null && ` • MRP: ₹${item.mrp.toFixed(2)}`}
+                      </span>
                       <span className="font-bold text-primary">Qty: {item.quantity}</span>
                     </div>
                   </div>
@@ -301,6 +304,14 @@ export default function CheckoutPage() {
                   <span>Total Units:</span>
                   <span className="font-mono font-bold text-primary">{totalUnitsCount}</span>
                 </div>
+                {cart.some((i) => i.mrp !== undefined && i.mrp !== null) && (
+                  <div className="flex justify-between font-medium pt-1 border-t border-surface-container/60">
+                    <span>Total MRP Value:</span>
+                    <span className="font-mono font-bold text-emerald-700">
+                      ₹{cart.reduce((sum, item) => sum + (item.mrp || 0) * item.quantity, 0).toFixed(2)}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
