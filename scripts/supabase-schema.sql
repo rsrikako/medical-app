@@ -23,6 +23,7 @@ CREATE TABLE products (
   pack_count TEXT,
   strength TEXT,
   form TEXT,
+  mrp NUMERIC(10,2),
   description TEXT,
   image_url TEXT,
   status TEXT DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
