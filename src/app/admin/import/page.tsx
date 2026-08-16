@@ -298,7 +298,7 @@ export default function AdminImportPage() {
                   className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-bold text-xs rounded-lg hover:bg-primary-hover transition-colors shadow-md disabled:opacity-50"
                 >
                   <ShieldCheck className="w-4 h-4" />
-                  <span>{importing ? 'Processing Batch Write...' : `Confirm & Import ${validRows.length} Products`}</span>
+                    <span>{importing ? 'Processing Batch Write...' : `Confirm and Import ${validRows.length} Product${validRows.length === 1 ? '' : 's'}`}</span>
                 </button>
               )}
             </div>
