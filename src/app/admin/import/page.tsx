@@ -78,8 +78,8 @@ export default function AdminImportPage() {
     let deleted = 0
 
     try {
-      // 1. Process Add & Update
-      for (const res of validRows) {
+      // 1. Prepare payload and send to server-side upsert endpoint
+      const payload = validRows.map((res) => {
         const row = res.row
         const matchedCategory = existingCategories.find(
           (c) => c.name.toLowerCase() === row.category.toLowerCase()
@@ -89,27 +89,40 @@ export default function AdminImportPage() {
 
         const existingProd = existingProducts.find((p) => p.sku.toLowerCase() === row.sku.toLowerCase())
 
-        await saveProduct({
+        return {
           id: existingProd ? existingProd.id : undefined,
           sku: row.sku,
           name: row.product_name,
-          categoryId,
-          categoryName,
+          category_id: categoryId,
+          category_name: categoryName,
           brand: row.brand,
           strength: row.strength || '',
           form: row.form || 'Tablet',
-          packCount: row.pack_count,
+          pack_count: row.pack_count,
           mrp: row.mrp,
           description: row.description || '',
           status: row.status,
-        })
-
-        if (existingProd) {
-          updated++
-        } else {
-          created++
         }
+      })
+
+      // POST payload to server endpoint which performs chunked upsert with onConflict: 'sku'
+      const resp = await fetch('/api/admin/upsert-products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}))
+        throw new Error(err?.error || `Upload failed with status ${resp.status}`)
       }
+
+      const result = await resp.json()
+
+      // Use client-side counts for created/updated estimates
+      created = createCount
+      updated = updateCount
+
 
       // 2. Process Delete for missing products
       for (const prodToDelete of missingProductsToDelete) {
