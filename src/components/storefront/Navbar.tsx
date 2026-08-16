@@ -64,7 +64,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="relative">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-outline" />
                 <input
-                  type="text"
+                  type="search"
+                  inputMode="search"
+                  enterKeyHint="search"
                   placeholder="Search by Product Name, Brand, SKU, or Strength..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
