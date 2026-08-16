@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { AuthProvider } from '@/lib/context/AuthContext'
 import { CartProvider } from '@/lib/context/CartContext'
+import VersionChecker from '@/components/VersionChecker'
 
 export const metadata: Metadata = {
   title: 'Sri Subrahmanya Agencies | Medical Wholesale Catalog & WhatsApp Ordering',
@@ -17,7 +18,10 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className="min-h-screen bg-background text-on-surface flex flex-col antialiased">
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <VersionChecker />
+            {children}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

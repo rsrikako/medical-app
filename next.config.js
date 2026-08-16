@@ -16,6 +16,27 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // Only apply to HTML responses so static assets remain cacheable
+        source: '/:path*',
+        has: [
+          {
+            type: 'header',
+            key: 'accept',
+            value: 'text/html',
+          },
+        ],
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
