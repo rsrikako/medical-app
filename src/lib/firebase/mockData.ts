@@ -142,7 +142,7 @@ export const INITIAL_PRODUCTS: Product[] = [
 ]
 
 export const INITIAL_SETTINGS: StoreSettings = {
-  businessName: 'Sri Subrahmanya Agencies',
+  businessName: process.env.NEXT_PUBLIC_STORE_NAME || '',
   whatsappNumber: '919493397176',
   contactPhone: '+91 94933 97176',
   logoUrl: '',

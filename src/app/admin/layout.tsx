@@ -1,9 +1,10 @@
-'use client'
+ 'use client'
 
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/context/AuthContext'
+import { useStoreSettings } from '@/lib/context/StoreSettingsContext'
 import { 
   LayoutDashboard, Package, Layers, FileSpreadsheet, Settings, 
   LogOut, Building2, ExternalLink, UserCheck 
@@ -16,6 +17,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const isLoginPage = pathname === '/admin/login'
   const isAuthenticated = Boolean(user || isDemoAdmin)
+
+  const { settings } = useStoreSettings()
 
   useEffect(() => {
     if (!loading && !isAuthenticated && !isLoginPage) {
@@ -42,6 +45,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return null
   }
 
+  const storeName = (typeof window === 'undefined') ? process.env.NEXT_PUBLIC_STORE_NAME || '' : undefined
+
   const navLinks = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/products', label: 'Products', icon: Package },
@@ -62,7 +67,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-sm font-bold text-on-surface block leading-tight">Sri Subrahmanya Agencies Admin</span>
+                <span className="text-sm font-bold text-on-surface block leading-tight">{(settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME) ? `${settings?.businessName ?? process.env.NEXT_PUBLIC_STORE_NAME} Admin` : 'Admin'}</span>
                 <span className="text-[10px] font-mono text-secondary uppercase font-semibold block">Catalog Backoffice</span>
               </div>
             </div>

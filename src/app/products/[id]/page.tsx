@@ -21,9 +21,9 @@ export default function ProductDetailPage() {
 
   const [product, setProduct] = useState<Product | null>(null)
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'Sri Subrahmanya Agencies',
-    whatsappNumber: '919876543210',
-    contactPhone: '+91 98765 43210',
+    businessName: process.env.NEXT_PUBLIC_STORE_NAME || '',
+    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
+    contactPhone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '',
   })
   const [quantity, setQuantity] = useState<number>(1)
   const [loading, setLoading] = useState<boolean>(true)

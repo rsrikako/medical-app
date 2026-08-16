@@ -7,9 +7,9 @@ import { Save, Check, Building2, Phone, MessageSquare } from 'lucide-react'
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'Sri Subrahmanya Agencies',
-    whatsappNumber: '919876543210',
-    contactPhone: '+91 98765 43210',
+    businessName: process.env.NEXT_PUBLIC_STORE_NAME || '',
+    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
+    contactPhone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '',
     logoUrl: '',
   })
   const [loading, setLoading] = useState(true)

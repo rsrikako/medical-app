@@ -19,9 +19,9 @@ export default function CheckoutPage() {
   const { cart, totalLineItems, totalUnitsCount } = useCart()
 
   const [settings, setSettings] = useState<StoreSettings>({
-    businessName: 'Sri Subrahmanya Agencies',
-    whatsappNumber: '919876543210',
-    contactPhone: '+91 98765 43210',
+    businessName: process.env.NEXT_PUBLIC_STORE_NAME || '',
+    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '',
+    contactPhone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '',
   })
 
   const [formData, setFormData] = useState<CheckoutDetails>({

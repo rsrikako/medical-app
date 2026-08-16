@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useStoreSettings } from '@/lib/context/StoreSettingsContext'
 import Link from 'next/link'
 import { useCart } from '@/lib/context/CartContext'
 import { ShoppingBag, ShieldCheck, UserCheck, Search, Building2 } from 'lucide-react'
@@ -12,11 +13,13 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  businessName = 'Sri Subrahmanya Agencies',
+  businessName = '',
   searchQuery = '',
   setSearchQuery,
 }) => {
   const { totalUnitsCount, totalLineItems } = useCart()
+  const { settings } = useStoreSettings()
+  const resolvedBusinessName = businessName || settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME || ''
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-surface-container border-opacity-80">
@@ -47,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <span className="text-lg font-bold text-on-surface tracking-tight block leading-tight">
-                {businessName}
+                {resolvedBusinessName}
               </span>
               <span className="text-[10px] font-semibold text-secondary uppercase tracking-wider block">
                 Wholesale Medical Supply

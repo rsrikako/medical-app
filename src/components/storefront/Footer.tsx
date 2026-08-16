@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useStoreSettings } from '@/lib/context/StoreSettingsContext'
 import { Building2, ShieldCheck, PhoneCall, ArrowRight } from 'lucide-react'
 
 export const Footer: React.FC = () => {
@@ -14,7 +15,7 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-white font-bold text-sm">
                 <Building2 className="w-5 h-5" />
               </div>
-              <span className="text-base font-bold text-on-surface">Sri Subrahmanya Agencies</span>
+              <span className="text-base font-bold text-on-surface">{(useStoreSettings().settings?.businessName) || process.env.NEXT_PUBLIC_STORE_NAME || ''}</span>
             </div>
             <p className="text-sm text-on-surface-variant max-w-md leading-relaxed mb-4">
               Streamlined B2B medical wholesale catalog and direct WhatsApp ordering platform. Supplying pharmacies, clinics, and hospitals with verified pharmaceutical products.
@@ -63,7 +64,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 border-t border-surface-container flex flex-col sm:flex-row items-center justify-between text-xs text-on-surface-variant gap-4">
-          <p>© {new Date().getFullYear()} Sri Subrahmanya Agencies, Anakapalli. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {(useStoreSettings().settings?.businessName) || process.env.NEXT_PUBLIC_STORE_NAME || ''}{(useStoreSettings().settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME) ? ', Anakapalli' : ''}. All rights reserved.</p>
           <p className="font-mono text-[11px] text-outline">WhatsApp Direct Order System v1.0</p>
         </div>
       </div>
