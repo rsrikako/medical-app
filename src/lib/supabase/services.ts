@@ -168,15 +168,15 @@ export async function saveProduct(product: Partial<Product> & { sku: string; nam
     try {
       const { error } = await supabase
         .from('products')
-        .insert({
+        .upsert({
           id,
           ...dbData,
           created_at: now,
-        })
+        }, { onConflict: 'sku' })
 
       if (error) throw error
     } catch (err) {
-      console.error('Supabase insert product failed:', err)
+      console.error('Supabase upsert product failed:', err)
       throw err
     }
   }
