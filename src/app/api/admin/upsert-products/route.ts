@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { randomUUID } from 'crypto'
 
 type UploadResult = {
   chunk: number
@@ -42,7 +43,8 @@ export async function POST(req: Request) {
 
     // Sanitize objects to include only allowed DB columns (drop _rowIndex and other extras)
     const allowedCols = (r: any) => ({
-      id: r.id || undefined,
+      // Ensure `id` is present for inserts — some schemas require non-null id without DB default
+      id: r.id || randomUUID(),
       sku: r.sku,
       name: r.name || r.product_name || undefined,
       category_id: r.category_id || r.categoryId || r.category || undefined,
