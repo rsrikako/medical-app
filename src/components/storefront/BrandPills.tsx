@@ -68,13 +68,13 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
     <div className="w-full">
       <div className="flex items-center gap-2">
         <div className="flex-1 relative">
-          <div className="flex flex-wrap items-center gap-2 bg-white border border-outline-variant rounded-lg px-3 py-2">
+          <div className="flex flex-wrap items-center gap-2 bg-white border border-outline-variant rounded-lg px-3 py-2 overflow-hidden">
             {selectedBrands.map((b) => (
               <span
                 key={b}
                 className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium"
               >
-                <span className="truncate max-w-[10rem]">{b}</span>
+                <span className="truncate max-w-[6rem] sm:max-w-[10rem]">{b}</span>
                 <button
                   aria-label={`Remove ${b}`}
                   onClick={() => removeBrand(b)}
@@ -97,7 +97,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
                 onFocus={() => setOpen(true)}
                 onKeyDown={onKeyDown}
                 placeholder="Search brands"
-                className="flex-1 outline-none text-sm bg-transparent placeholder:text-on-surface-variant min-w-[9rem] truncate"
+                className="flex-1 outline-none text-sm bg-transparent placeholder:text-on-surface-variant min-w-0 pr-8 truncate"
                 aria-label="Search brands"
               />
             </div>

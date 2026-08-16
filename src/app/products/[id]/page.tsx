@@ -171,10 +171,10 @@ export default function ProductDetailPage() {
                   {product.salePrice !== undefined && product.salePrice !== null ? (
                     <div>
                       <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Price</span>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-sm font-mono font-bold text-emerald-800">₹{Number(product.salePrice).toFixed(2)}</span>
+                      <div className="flex items-baseline gap-2 flex-nowrap">
+                        <span className="text-sm font-mono font-bold text-emerald-800 whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
                         {product.mrp !== undefined && product.mrp !== null && (
-                          <span className="text-on-surface-variant line-through text-[11px]">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                          <span className="text-on-surface-variant line-through text-[11px] ml-2 whitespace-nowrap inline-block">MRP ₹{Number(product.mrp).toFixed(2)}</span>
                         )}
                       </div>
                     </div>

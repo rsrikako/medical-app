@@ -291,10 +291,16 @@ export default function CheckoutPage() {
                           <>
                             {' '}
                             •{' '}
-                            {item.salePrice !== undefined && item.salePrice !== null ? `Sale: ₹${item.salePrice.toFixed(2)}` : `MRP: ₹${item.mrp!.toFixed(2)}`}
-                            {item.salePrice !== undefined && item.salePrice !== null && item.mrp !== undefined && item.mrp !== null && (
-                              <span className="text-on-surface-variant line-through text-[11px] ml-2">MRP ₹{Number(item.mrp).toFixed(2)}</span>
-                            )}
+                            <span className="flex items-center gap-2 flex-nowrap">
+                              {item.salePrice !== undefined && item.salePrice !== null ? (
+                                <span className="whitespace-nowrap">Sale: ₹{item.salePrice.toFixed(2)}</span>
+                              ) : (
+                                <span className="whitespace-nowrap">MRP: ₹{item.mrp!.toFixed(2)}</span>
+                              )}
+                              {item.salePrice !== undefined && item.salePrice !== null && item.mrp !== undefined && item.mrp !== null && (
+                                <span className="text-on-surface-variant line-through text-[11px] ml-2 whitespace-nowrap inline-block">MRP ₹{Number(item.mrp).toFixed(2)}</span>
+                              )}
+                            </span>
                           </>
                         )}
                       </span>

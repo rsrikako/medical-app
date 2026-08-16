@@ -68,6 +68,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   placeholder="Search by Product Name, Brand, SKU, or Strength..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                    }
+                  }}
                   className="clinical-input pl-10 pr-4 py-2 text-sm bg-surface-container-low focus:bg-white rounded-lg"
                 />
               </div>

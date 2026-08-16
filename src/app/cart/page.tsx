@@ -107,14 +107,16 @@ export default function CartPage() {
                         ) && (
                           <>
                             <span>•</span>
-                            {item.salePrice !== undefined && item.salePrice !== null ? (
-                              <span className="text-emerald-800 font-bold">₹{Number(item.salePrice).toFixed(2)}</span>
-                            ) : (
-                              <span className="text-emerald-700 font-bold">MRP: ₹{Number(item.mrp).toFixed(2)}</span>
-                            )}
-                            {item.salePrice !== undefined && item.salePrice !== null && item.mrp !== undefined && item.mrp !== null && (
-                              <span className="text-on-surface-variant line-through text-[11px] ml-2">MRP ₹{Number(item.mrp).toFixed(2)}</span>
-                            )}
+                            <span className="flex items-center gap-2 flex-nowrap">
+                              {item.salePrice !== undefined && item.salePrice !== null ? (
+                                <span className="text-emerald-800 font-bold whitespace-nowrap">₹{Number(item.salePrice).toFixed(2)}</span>
+                              ) : (
+                                <span className="text-emerald-700 font-bold whitespace-nowrap">MRP: ₹{Number(item.mrp).toFixed(2)}</span>
+                              )}
+                              {item.salePrice !== undefined && item.salePrice !== null && item.mrp !== undefined && item.mrp !== null && (
+                                <span className="text-on-surface-variant line-through text-[11px] ml-2 whitespace-nowrap inline-block">MRP ₹{Number(item.mrp).toFixed(2)}</span>
+                              )}
+                            </span>
                           </>
                         )}
                       </div>
