@@ -66,7 +66,7 @@ export async function POST(req: Request) {
     const RETRIES = parseInt(process.env.UPLOAD_RETRIES || '3', 10)
 
     const chunks: any[][] = []
-    for (let i = 0; i < deduped.length; i += CHUNK_SIZE) chunks.push(deduped.slice(i, i + CHUNK_SIZE))
+    for (let i = 0; i < payload.length; i += CHUNK_SIZE) chunks.push(payload.slice(i, i + CHUNK_SIZE))
 
     const results: UploadResult[] = []
 

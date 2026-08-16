@@ -123,6 +123,25 @@ export default function AdminImportPage() {
       created = createCount
       updated = updateCount
 
+      // Check result diagnostics — don't proceed to deletions if chunks failed
+      const anyFailures = Array.isArray(result?.results) && result.results.some((r: any) => !r.success)
+      if (anyFailures) {
+        const errs = result.results.map((r: any) => `Chunk ${r.chunk}: ${r.error || 'unknown error'}`).join('\n')
+        alert(`Upsert completed with errors:\n${errs}`)
+        // refresh what we can and abort deletion step
+        try {
+          const refreshed = await getProducts()
+          setExistingProducts(refreshed)
+          try { router.refresh() } catch (e) { /* ignore */ }
+        } catch (e) {
+          console.warn('Failed to refresh products after upsert with errors:', e)
+        }
+        setImportedStats({ created, updated, deleted })
+        setImportCompleted(false)
+        setImporting(false)
+        return
+      }
+
       // Refresh local products cache and UI from server to reflect changes
       try {
         const refreshed = await getProducts()
