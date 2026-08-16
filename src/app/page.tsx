@@ -19,7 +19,7 @@ export default function StorefrontHomePage() {
   })
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -55,10 +55,10 @@ export default function StorefrontHomePage() {
       return false
     }
 
-    // Brand check
-    if (selectedBrand && p.brand !== selectedBrand) {
-      return false
-    }
+      // Brand check (multi-select)
+      if (selectedBrands.length > 0 && !selectedBrands.includes(p.brand)) {
+        return false
+      }
 
     // Search query check
     if (searchQuery.trim() !== '') {
@@ -119,7 +119,7 @@ export default function StorefrontHomePage() {
 
           {/* Brands on second line; removed category filters as requested */}
           <div className="mt-3">
-            <BrandPills brands={brands} selectedBrand={selectedBrand} onSelectBrand={setSelectedBrand} />
+            <BrandPills brands={brands} selectedBrands={selectedBrands} onChange={setSelectedBrands} />
           </div>
         </div>
 
