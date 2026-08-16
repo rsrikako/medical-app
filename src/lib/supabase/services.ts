@@ -96,7 +96,7 @@ export async function getProductsCount(status?: 'active' | 'inactive'): Promise<
   const supabase = getSupabaseOrThrow()
 
   try {
-    let query = supabase.from('products').select('*', { count: 'exact', head: true })
+    let query = supabase.from('products').select('*', { count: 'exact', head: true }).order('sku', { ascending: true })
     if (status) query = query.eq('status', status)
 
     const { count, error } = await query
