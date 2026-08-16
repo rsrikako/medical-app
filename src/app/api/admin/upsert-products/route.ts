@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const results: UploadResult[] = []
 
     // helper: upsert with retries
-    async function upsertChunkWithRetries(chunk: any[], index: number): Promise<UploadResult> {
+    const upsertChunkWithRetries = async (chunk: any[], index: number): Promise<UploadResult> => {
       let attempt = 0
       while (attempt < RETRIES) {
         try {
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
     const pool: Promise<void>[] = []
     let nextIndex = 0
 
-    async function worker() {
+    const worker = async () => {
       while (true) {
         const i = nextIndex++
         if (i >= chunks.length) break
