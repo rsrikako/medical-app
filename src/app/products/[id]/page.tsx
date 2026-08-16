@@ -186,12 +186,10 @@ export default function ProductDetailPage() {
                       <span className="text-xs font-semibold text-on-surface">{product.form}</span>
                     </div>
                   )}
-                  {product.categoryName && (
-                    <div className="col-span-2 border-t border-surface-container pt-2 mt-1">
-                      <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Category</span>
-                      <span className="text-xs font-semibold text-primary">{product.categoryName}</span>
-                    </div>
-                  )}
+                  <div className="col-span-2 border-t border-surface-container pt-2 mt-1">
+                    <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Category</span>
+                    <span className="text-xs font-semibold text-primary">{product.categoryName || 'N/A'}</span>
+                  </div>
                 </div>
 
                 {/* Description */}

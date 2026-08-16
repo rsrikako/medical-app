@@ -1,0 +1,7 @@
+[
+  { "sku": "PCM500-10", "name": "Paracetamol 500mg - A", "brand": "ABC Pharma", "pack_count": "10 Tablets", "mrp": 45.0 },
+  { "sku": "PCM500-20", "name": "Paracetamol 500mg - B", "brand": "ABC Pharma", "pack_count": "20 Tablets", "mrp": 85.0 },
+  { "sku": "AMX250-10", "name": "Amoxicillin 250mg", "brand": "XYZ Pharma", "pack_count": "10 Capsules", "mrp": 120.0 },
+  { "sku": "AMX250-10", "name": "Amoxicillin 250mg - Duplicate SKU", "brand": "XYZ Pharma", "pack_count": "10 Capsules", "mrp": 120.0 },
+  { "sku": "SUP-001", "name": "Surgical Gloves", "brand": "MedSupplies", "pack_count": "1 Pair", "mrp": 30.0 }
+]

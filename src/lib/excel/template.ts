@@ -8,7 +8,7 @@ function buildExportRows(products: Product[] = [], categories: Category[] = []) 
     return products.map((product) => ({
       sku: product.sku,
       product_name: product.name,
-      category: product.categoryName || categoryNameMap.get(product.categoryId) || '',
+      category: product.categoryName || categoryNameMap.get(product.categoryId) || 'N/A',
       brand: product.brand || '',
       strength: product.strength || '',
       form: product.form || '',

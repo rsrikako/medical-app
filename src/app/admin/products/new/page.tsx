@@ -107,7 +107,7 @@ export default function AdminNewProductPage() {
         sku: cleanSku,
         name: formData.name.trim(),
         categoryId: formData.categoryId,
-        categoryName: selectedCat ? selectedCat.name : '',
+        categoryName: selectedCat ? selectedCat.name : 'N/A',
         brand: formData.brand.trim(),
         strength: formData.strength.trim(),
         form: formData.form.trim(),

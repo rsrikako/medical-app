@@ -5,6 +5,7 @@ import { Navbar } from '@/components/storefront/Navbar'
 import { Footer } from '@/components/storefront/Footer'
 import { ProductCard } from '@/components/storefront/ProductCard'
 import { CategoryPills } from '@/components/storefront/CategoryPills'
+import { BrandPills } from '@/components/storefront/BrandPills'
 import { getProducts, getCategories, getStoreSettings } from '@/lib/supabase/services'
 import { Product, Category, StoreSettings } from '@/types'
 import { Search, PackageX, Pill, ShieldCheck, PhoneCall, Filter } from 'lucide-react'
@@ -19,6 +20,7 @@ export default function StorefrontHomePage() {
   })
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null)
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -44,10 +46,18 @@ export default function StorefrontHomePage() {
   // Filter only active products
   const activeProducts = products.filter((p) => p.status === 'active')
 
+  // Extract unique brands
+  const brands = Array.from(new Set(products.map((p) => p.brand).filter(Boolean)))
+
   // Apply search & category filter
   const filteredProducts = activeProducts.filter((p) => {
     // Category check
     if (selectedCategoryId && p.categoryId !== selectedCategoryId) {
+      return false
+    }
+
+    // Brand check
+    if (selectedBrand && p.brand !== selectedBrand) {
       return false
     }
 
@@ -58,7 +68,7 @@ export default function StorefrontHomePage() {
       const matchBrand = p.brand.toLowerCase().includes(q)
       const matchSku = p.sku.toLowerCase().includes(q)
       const matchStrength = p.strength ? p.strength.toLowerCase().includes(q) : false
-      const matchCategory = p.categoryName ? p.categoryName.toLowerCase().includes(q) : false
+      const matchCategory = (p.categoryName ?? 'N/A').toLowerCase().includes(q)
       return matchName || matchBrand || matchSku || matchStrength || matchCategory
     }
 
@@ -106,11 +116,14 @@ export default function StorefrontHomePage() {
             </p>
           </div>
 
-          <CategoryPills
-            categories={categories}
-            selectedCategoryId={selectedCategoryId}
-            onSelectCategory={setSelectedCategoryId}
-          />
+          <div className="space-y-2">
+            <CategoryPills
+              categories={categories}
+              selectedCategoryId={selectedCategoryId}
+              onSelectCategory={setSelectedCategoryId}
+            />
+            <BrandPills brands={brands} selectedBrand={selectedBrand} onSelectBrand={setSelectedBrand} />
+          </div>
         </div>
 
         {/* Product Grid / Loading / Empty States */}

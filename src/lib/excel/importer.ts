@@ -16,7 +16,7 @@ export async function parseExcelFile(file: File): Promise<ExcelImportRow[]> {
     return {
       sku: String(r.sku || r.SKU || '').trim(),
       product_name: String(r.product_name || r.name || r['Product Name'] || '').trim(),
-      category: String(r.category || r.Category || '').trim(),
+      category: String(r.category || r.Category || '').trim() || 'N/A',
       brand: String(r.brand || r.Brand || '').trim(),
       strength: String(r.strength || r.Strength || '').trim(),
       form: String(r.form || r.Form || '').trim(),

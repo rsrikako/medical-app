@@ -151,6 +151,22 @@ export default function AdminProductsPage() {
             </select>
           </div>
 
+          {/* Brand Filter */}
+          <div>
+            <select
+              value={selectedBrand}
+              onChange={(e) => setSelectedBrand(e.target.value)}
+              className="clinical-input"
+            >
+              <option value="all">All Brands</option>
+              {brandsList.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Status Filter */}
           <div>
             <select
@@ -224,7 +240,7 @@ export default function AdminProductsPage() {
 
                     {/* Category */}
                     <td className="py-3 px-4 text-on-surface-variant">
-                      {p.categoryName || 'Uncategorized'}
+                      {p.categoryName || 'N/A'}
                     </td>
 
                     {/* Pack Count */}

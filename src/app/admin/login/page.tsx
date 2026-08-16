@@ -3,16 +3,31 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/context/AuthContext'
+import { getStoreSettings } from '@/lib/supabase/services'
+import { StoreSettings } from '@/types'
+import { useEffect } from 'react'
 import { Building2, Lock, Mail, KeyRound, AlertCircle, ArrowRight } from 'lucide-react'
 
 export default function AdminLoginPage() {
   const router = useRouter()
   const { login } = useAuth()
 
-  const [email, setEmail] = useState('admin@srisubrahmanyaagencies.com')
-  const [password, setPassword] = useState('Subpharma@2025')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [settings, setSettings] = React.useState<StoreSettings>({
+    businessName: 'Sri Subrahmanya Agencies',
+    whatsappNumber: '919876543210',
+    contactPhone: '+91 98765 43210',
+    logoUrl: '',
+  })
+
+  useEffect(() => {
+    getStoreSettings().then((stg) => {
+      if (stg) setSettings(stg)
+    }).catch(() => {})
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,7 +52,7 @@ export default function AdminLoginPage() {
           <div className="w-12 h-12 rounded-xl bg-primary-container text-white mx-auto flex items-center justify-center mb-3 shadow-md">
             <Building2 className="w-7 h-7" />
           </div>
-          <h1 className="text-2xl font-extrabold text-on-surface tracking-tight">Sri Subrahmanya Agencies Admin Portal</h1>
+          <h1 className="text-2xl font-extrabold text-on-surface tracking-tight">{settings.businessName} Admin Portal</h1>
           <p className="text-xs text-on-surface-variant mt-1">
             Authenticated Catalog & Category Management
           </p>
