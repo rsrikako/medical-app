@@ -22,9 +22,6 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center space-x-4 text-xs font-medium text-secondary">
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4" /> No Prices Shown
-              </span>
-              <span className="flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4" /> WhatsApp Checkout
               </span>
             </div>
