@@ -13,10 +13,10 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrand, o
   const activeBrands = brands.filter(Boolean)
 
   return (
-    <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+    <div className="flex flex-wrap items-center gap-2">
       <button
         onClick={() => onSelectBrand(null)}
-        className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+        className={`px-4 py-2 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
           selectedBrand === null
             ? 'bg-primary text-white shadow-sm'
             : 'bg-white border border-outline-variant text-on-surface hover:bg-surface-container-low'
@@ -32,7 +32,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrand, o
           <button
             key={b}
             onClick={() => onSelectBrand(b)}
-            className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
               isSelected
                 ? 'bg-primary text-white shadow-sm'
                 : 'bg-white border border-outline-variant text-on-surface hover:bg-surface-container-low'

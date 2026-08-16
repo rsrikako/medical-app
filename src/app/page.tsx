@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { Navbar } from '@/components/storefront/Navbar'
 import { Footer } from '@/components/storefront/Footer'
 import { ProductCard } from '@/components/storefront/ProductCard'
-import { CategoryPills } from '@/components/storefront/CategoryPills'
 import { BrandPills } from '@/components/storefront/BrandPills'
 import { getProducts, getCategories, getStoreSettings } from '@/lib/supabase/services'
 import { Product, Category, StoreSettings } from '@/types'
@@ -107,21 +106,19 @@ export default function StorefrontHomePage() {
           </div>
         </div>
 
-        {/* Category Filter Pills & Catalog Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-          <div>
-            <h2 className="text-lg font-bold text-on-surface">Product Catalog</h2>
-            <p className="text-xs text-on-surface-variant">
-              Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
-            </p>
+        {/* Catalog Header and Brand Filters */}
+        <div className="mb-6">
+          <div className="flex items-baseline justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-lg font-bold text-on-surface">Product Catalog</h2>
+              <p className="text-xs text-on-surface-variant">
+                Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'}
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <CategoryPills
-              categories={categories}
-              selectedCategoryId={selectedCategoryId}
-              onSelectCategory={setSelectedCategoryId}
-            />
+          {/* Brands on second line; removed category filters as requested */}
+          <div className="mt-3">
             <BrandPills brands={brands} selectedBrand={selectedBrand} onSelectBrand={setSelectedBrand} />
           </div>
         </div>
