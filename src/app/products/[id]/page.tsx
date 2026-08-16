@@ -168,12 +168,22 @@ export default function ProductDetailPage() {
                     <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Pack Size</span>
                     <span className="text-xs font-semibold text-on-surface">{product.packCount}</span>
                   </div>
-                  {product.mrp !== undefined && product.mrp !== null && (
+                  {product.salePrice !== undefined && product.salePrice !== null ? (
+                    <div>
+                      <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Price</span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-mono font-bold text-emerald-800">₹{Number(product.salePrice).toFixed(2)}</span>
+                        {product.mrp !== undefined && product.mrp !== null && (
+                          <span className="text-on-surface-variant line-through text-[11px]">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                        )}
+                      </div>
+                    </div>
+                  ) : product.mrp !== undefined && product.mrp !== null ? (
                     <div>
                       <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">MRP</span>
                       <span className="text-sm font-mono font-bold text-emerald-700">₹{Number(product.mrp).toFixed(2)}</span>
                     </div>
-                  )}
+                  ) : null}
                   {product.strength && (
                     <div>
                       <span className="text-[11px] font-medium text-outline block uppercase tracking-wider">Strength</span>

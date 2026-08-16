@@ -75,6 +75,7 @@ export async function getProducts(): Promise<Product[]> {
       strength: row.strength,
       form: row.form,
       mrp: row.mrp,
+      salePrice: row.sale_price ?? row.salePrice ?? undefined,
       description: row.description,
       imageUrl: row.image_url,
       status: row.status,
@@ -119,7 +120,7 @@ export async function getProductById(id: string): Promise<Product | null> {
 
     if (error && error.code !== 'PGRST116') throw error
     if (data) {
-      return {
+        return {
         id: data.id,
         sku: data.sku,
         name: data.name,
@@ -129,7 +130,8 @@ export async function getProductById(id: string): Promise<Product | null> {
         packCount: data.pack_count,
         strength: data.strength,
         form: data.form,
-        mrp: data.mrp,
+          mrp: data.mrp,
+          salePrice: data.sale_price ?? data.salePrice ?? undefined,
         description: data.description,
         imageUrl: data.image_url,
         status: data.status,
@@ -159,6 +161,7 @@ export async function saveProduct(product: Partial<Product> & { sku: string; nam
     strength: product.strength,
     form: product.form,
     mrp: product.mrp,
+    sale_price: product.salePrice,
     description: product.description,
     image_url: product.imageUrl,
     status: product.status || 'active',

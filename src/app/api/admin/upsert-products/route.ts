@@ -54,6 +54,7 @@ export async function POST(req: Request) {
       strength: r.strength || undefined,
       form: r.form || undefined,
       mrp: r.mrp === undefined ? undefined : Number(r.mrp),
+      sale_price: r.sale_price === undefined ? (r.salePrice === undefined ? undefined : Number(r.salePrice)) : Number(r.sale_price),
       description: r.description || undefined,
       status: r.status || 'active',
       created_at: r.created_at || undefined,

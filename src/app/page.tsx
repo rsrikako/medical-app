@@ -83,28 +83,7 @@ export default function StorefrontHomePage() {
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Banner Section */}
-        <div className="bg-gradient-to-r from-primary to-primary-container text-white rounded-xl p-6 sm:p-8 mb-8 shadow-sm">
-          <div className="max-w-3xl">
-            <span className="inline-block bg-white/20 text-white font-mono text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
-              B2B Medical Wholesale Catalog
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">
-              Direct Wholesale Ordering for Pharmacies & Healthcare Providers
-            </h1>
-            <p className="text-blue-100 text-sm sm:text-base leading-relaxed mb-4">
-              Select products and quantities into your cart, complete contact details, and submit directly to our WhatsApp order team. No minimum pricing markup or hidden fees.
-            </p>
-            <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-blue-100">
-              <span className="flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4 text-teal-300" /> Guaranteed Authentic SKUs
-              </span>
-              <span className="flex items-center gap-1">
-                <PhoneCall className="w-4 h-4 text-teal-300" /> Direct WhatsApp Handoff
-              </span>
-            </div>
-          </div>
-        </div>
+        {/* Banner removed as requested */}
 
         {/* Catalog Header and Brand Filters */}
         <div className="mb-6">

@@ -287,7 +287,16 @@ export default function CheckoutPage() {
                     <div className="flex justify-between text-outline mt-1 font-mono text-[11px]">
                       <span>
                         SKU: {item.sku}
-                        {item.mrp !== undefined && item.mrp !== null && ` • MRP: ₹${item.mrp.toFixed(2)}`}
+                        {((item.salePrice !== undefined && item.salePrice !== null) || (item.mrp !== undefined && item.mrp !== null)) && (
+                          <>
+                            {' '}
+                            •{' '}
+                            {item.salePrice !== undefined && item.salePrice !== null ? `Sale: ₹${item.salePrice.toFixed(2)}` : `MRP: ₹${item.mrp!.toFixed(2)}`}
+                            {item.salePrice !== undefined && item.salePrice !== null && item.mrp !== undefined && item.mrp !== null && (
+                              <span className="text-on-surface-variant line-through text-[11px] ml-2">MRP ₹{Number(item.mrp).toFixed(2)}</span>
+                            )}
+                          </>
+                        )}
                       </span>
                       <span className="font-bold text-primary">Qty: {item.quantity}</span>
                     </div>
@@ -304,11 +313,11 @@ export default function CheckoutPage() {
                   <span>Total Units:</span>
                   <span className="font-mono font-bold text-primary">{totalUnitsCount}</span>
                 </div>
-                {cart.some((i) => i.mrp !== undefined && i.mrp !== null) && (
+                {cart.some((i) => (i.salePrice !== undefined && i.salePrice !== null) || (i.mrp !== undefined && i.mrp !== null)) && (
                   <div className="flex justify-between font-medium pt-1 border-t border-surface-container/60">
-                    <span>Total MRP Value:</span>
+                    <span>Total Order Value:</span>
                     <span className="font-mono font-bold text-emerald-700">
-                      ₹{cart.reduce((sum, item) => sum + (item.mrp || 0) * item.quantity, 0).toFixed(2)}
+                      ₹{cart.reduce((sum, item) => sum + ((item.salePrice ?? item.mrp) || 0) * item.quantity, 0).toFixed(2)}
                     </span>
                   </div>
                 )}

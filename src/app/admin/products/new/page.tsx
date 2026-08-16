@@ -23,6 +23,7 @@ export default function AdminNewProductPage() {
     form: 'Tablet',
     packCount: '',
     mrp: '',
+    salePrice: '',
     description: '',
     imageUrl: '',
     status: 'active' as 'active' | 'inactive',
@@ -88,8 +89,13 @@ export default function AdminNewProductPage() {
     }
 
     const parsedMrp = formData.mrp ? parseFloat(formData.mrp) : undefined
+    const parsedSale = formData.salePrice ? parseFloat(formData.salePrice) : undefined
     if (formData.mrp && (isNaN(parsedMrp!) || parsedMrp! < 0)) {
       setError('MRP must be a valid positive number')
+      return
+    }
+    if (formData.salePrice && (isNaN(parsedSale!) || parsedSale! < 0)) {
+      setError('Sale Price must be a valid positive number')
       return
     }
 
@@ -113,6 +119,7 @@ export default function AdminNewProductPage() {
         form: formData.form.trim(),
         packCount: formData.packCount.trim(),
         mrp: parsedMrp,
+        salePrice: parsedSale,
         description: formData.description.trim(),
         imageUrl: finalImageUrl,
         status: formData.status,
@@ -243,6 +250,21 @@ export default function AdminNewProductPage() {
                 placeholder="e.g. 150.00"
                 value={formData.mrp}
                 onChange={(e) => setFormData({ ...formData, mrp: e.target.value })}
+                className="clinical-input font-mono"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-on-surface uppercase tracking-wider mb-1">
+                Sale Price (₹) <span className="text-outline font-normal text-[10px]">(Optional)</span>
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                placeholder="e.g. 120.00"
+                value={formData.salePrice}
+                onChange={(e) => setFormData({ ...formData, salePrice: e.target.value })}
                 className="clinical-input font-mono"
               />
             </div>

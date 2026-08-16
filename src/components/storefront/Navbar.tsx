@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Building2 className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-lg font-bold text-on-surface tracking-tight block leading-tight">
+              <span className="text-base sm:text-lg font-bold text-on-surface tracking-tight block leading-tight max-w-[18rem] truncate">
                 {resolvedBusinessName}
               </span>
               <span className="text-[10px] font-semibold text-secondary uppercase tracking-wider block">

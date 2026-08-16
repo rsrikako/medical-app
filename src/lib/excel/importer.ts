@@ -12,6 +12,8 @@ export async function parseExcelFile(file: File): Promise<ExcelImportRow[]> {
   return rawRows.map((r) => {
     const rawMrp = r.mrp !== undefined && r.mrp !== '' ? r.mrp : r.MRP !== undefined && r.MRP !== '' ? r.MRP : r['Maximum Retail Price']
     const parsedMrp = rawMrp !== undefined && rawMrp !== '' ? Number(rawMrp) : undefined
+    const rawSale = r.sale_price !== undefined && r.sale_price !== '' ? r.sale_price : r.salePrice !== undefined && r.salePrice !== '' ? r.salePrice : r['Sale Price']
+    const parsedSale = rawSale !== undefined && rawSale !== '' ? Number(rawSale) : undefined
 
     return {
       sku: String(r.sku || r.SKU || '').trim(),
@@ -22,6 +24,7 @@ export async function parseExcelFile(file: File): Promise<ExcelImportRow[]> {
       form: String(r.form || r.Form || '').trim(),
       pack_count: String(r.pack_count || r['Pack Count'] || r.packCount || '').trim(),
       mrp: parsedMrp !== undefined && !isNaN(parsedMrp) ? parsedMrp : undefined,
+      salePrice: parsedSale !== undefined && !isNaN(parsedSale) ? parsedSale : undefined,
       description: String(r.description || r.Description || '').trim(),
       status: (String(r.status || r.Status || 'active').toLowerCase().trim() === 'inactive' ? 'inactive' : 'active') as 'active' | 'inactive',
     }
@@ -73,6 +76,9 @@ export function validateExcelRows(
 
     if (row.mrp !== undefined && (typeof row.mrp !== 'number' || isNaN(row.mrp) || row.mrp < 0)) {
       errors.push(`Row ${rowNum}: Invalid MRP (must be a positive number)`)
+    }
+    if (row.salePrice !== undefined && (typeof row.salePrice !== 'number' || isNaN(row.salePrice) || row.salePrice < 0)) {
+      errors.push(`Row ${rowNum}: Invalid Sale Price (must be a positive number)`)
     }
 
     if (row.status !== 'active' && row.status !== 'inactive') {

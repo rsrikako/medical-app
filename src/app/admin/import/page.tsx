@@ -100,6 +100,7 @@ export default function AdminImportPage() {
           form: row.form || 'Tablet',
           pack_count: row.pack_count,
           mrp: row.mrp,
+          sale_price: row.salePrice ?? row.sale_price ?? undefined,
           description: row.description || '',
           status: row.status,
         }

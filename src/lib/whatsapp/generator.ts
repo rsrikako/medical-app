@@ -16,6 +16,7 @@ export function generateWhatsAppMessage(
   message += `\nORDER DETAILS\n\n`
 
   let totalMrp = 0
+  let totalPrice = 0
 
   cart.forEach((item, idx) => {
     message += `${idx + 1}. ${item.name}\n`
@@ -24,17 +25,20 @@ export function generateWhatsAppMessage(
     if (item.strength) {
       message += `   Strength: ${item.strength}\n`
     }
-    if (item.mrp !== undefined && item.mrp !== null) {
-      const lineMrp = item.mrp * item.quantity
-      totalMrp += lineMrp
-      message += `   MRP: ₹${item.mrp.toFixed(2)} (Subtotal: ₹${lineMrp.toFixed(2)})\n`
+    // Prefer salePrice for customer-facing subtotal if available
+    const unitPrice = item.salePrice !== undefined && item.salePrice !== null ? item.salePrice : item.mrp
+    if (unitPrice !== undefined && unitPrice !== null) {
+      const line = unitPrice * item.quantity
+      totalPrice += line
+      const label = item.salePrice !== undefined && item.salePrice !== null ? 'Sale Price' : 'MRP'
+      message += `   ${label}: ₹${unitPrice.toFixed(2)} (Subtotal: ₹${line.toFixed(2)})\n`
     }
     message += `   SKU: ${item.sku}\n`
     message += `   Quantity: ${item.quantity}\n\n`
   })
 
-  if (totalMrp > 0) {
-    message += `TOTAL ORDER MRP VALUE: ₹${totalMrp.toFixed(2)}\n\n`
+  if (totalPrice > 0) {
+    message += `TOTAL ORDER VALUE: ₹${totalPrice.toFixed(2)}\n\n`
   }
 
   if (details.deliveryAddress && details.deliveryAddress.trim()) {

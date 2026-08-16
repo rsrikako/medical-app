@@ -55,7 +55,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
   }
 
   const onKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter' && suggestions.length > 0) {
+    if (e.key === 'Enter' && query.trim() !== '' && suggestions.length > 0) {
       e.preventDefault()
       addBrand(suggestions[0])
     } else if (e.key === 'Backspace' && query === '' && selectedBrands.length > 0) {
@@ -85,7 +85,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
               </span>
             ))}
 
-            <div className="flex items-center flex-1 min-w-0">
+            <div className="flex items-center flex-1 min-w-0 pr-2">
               <Search className="w-4 h-4 text-on-surface-variant mr-2" />
               <input
                 ref={inputRef}
@@ -97,7 +97,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
                 onFocus={() => setOpen(true)}
                 onKeyDown={onKeyDown}
                 placeholder="Search brands"
-                className="flex-1 outline-none text-sm bg-transparent placeholder:text-on-surface-variant"
+                className="flex-1 outline-none text-sm bg-transparent placeholder:text-on-surface-variant min-w-[9rem] truncate"
                 aria-label="Search brands"
               />
             </div>
@@ -117,7 +117,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
         <div className="flex items-center gap-2">
           <button
             onClick={clearAll}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-outline-variant hover:bg-surface-container-low"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-outline-variant hover:bg-surface-container-low flex-shrink-0"
           >
             <Trash className="w-4 h-4" />
             Clear
