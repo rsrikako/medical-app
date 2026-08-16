@@ -40,6 +40,27 @@ export async function POST(req: Request) {
     }
     const deduped = Array.from(map.values())
 
+    // Sanitize objects to include only allowed DB columns (drop _rowIndex and other extras)
+    const allowedCols = (r: any) => ({
+      id: r.id || undefined,
+      sku: r.sku,
+      name: r.name || r.product_name || undefined,
+      category_id: r.category_id || r.categoryId || r.category || undefined,
+      category_name: r.category_name || r.categoryName || r.category || undefined,
+      brand: r.brand || undefined,
+      pack_count: r.pack_count || r.packCount || undefined,
+      strength: r.strength || undefined,
+      form: r.form || undefined,
+      mrp: r.mrp === undefined ? undefined : Number(r.mrp),
+      description: r.description || undefined,
+      status: r.status || 'active',
+      created_at: r.created_at || undefined,
+      updated_at: r.updated_at || undefined,
+      image_url: r.image_url || undefined,
+    })
+
+    const payload = deduped.map(allowedCols)
+
     const CHUNK_SIZE = parseInt(process.env.UPLOAD_CHUNK_SIZE || '500', 10)
     const CONCURRENCY = parseInt(process.env.UPLOAD_CONCURRENCY || '4', 10)
     const RETRIES = parseInt(process.env.UPLOAD_RETRIES || '3', 10)

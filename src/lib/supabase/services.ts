@@ -47,6 +47,7 @@ export async function getProducts(): Promise<Product[]> {
       .select('*')
       .eq('status', 'active')
       .order('created_at', { ascending: false })
+      .range(0, 99999)
 
     if (error) throw error
     if (data) {
