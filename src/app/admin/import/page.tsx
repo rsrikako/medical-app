@@ -123,6 +123,16 @@ export default function AdminImportPage() {
       created = createCount
       updated = updateCount
 
+      // Refresh local products cache and UI from server to reflect changes
+      try {
+        const refreshed = await getProducts()
+        setExistingProducts(refreshed)
+        // ensure server components revalidate where applicable
+        try { router.refresh() } catch (e) { /* ignore if not supported */ }
+      } catch (e) {
+        console.warn('Failed to refresh products after upsert:', e)
+      }
+
 
       // 2. Process Delete for missing products
       for (const prodToDelete of missingProductsToDelete) {
