@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getProducts, getCategories, saveProduct, deleteProduct } from '@/lib/supabase/services'
 import { Product, Category } from '@/types'
+import { DEFAULT_PRODUCT_IMAGE } from '@/lib/constants/defaults'
 import { 
   Plus, Search, Filter, Edit, Trash2, Power, 
   Pill, FileSpreadsheet, Check, AlertCircle 
@@ -223,13 +224,9 @@ export default function AdminProductsPage() {
                     {/* Product Name */}
                     <td className="py-3 px-4 font-semibold text-on-surface max-w-xs truncate">
                       <div className="flex items-center space-x-2">
-                        {p.imageUrl ? (
-                          <div className="w-7 h-7 relative rounded border border-surface-container overflow-hidden shrink-0">
-                            <Image src={p.imageUrl} alt={p.name} fill className="object-contain" />
-                          </div>
-                        ) : (
-                          <Pill className="w-5 h-5 text-outline shrink-0" />
-                        )}
+                        <div className="w-7 h-7 relative rounded border border-surface-container overflow-hidden shrink-0">
+                          <Image src={p.imageUrl || DEFAULT_PRODUCT_IMAGE} alt={p.name} fill className="object-contain" />
+                        </div>
                         <span className="truncate">{p.name}</span>
                       </div>
                     </td>

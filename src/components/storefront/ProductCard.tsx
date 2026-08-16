@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Product } from '@/types'
+import { DEFAULT_PRODUCT_IMAGE } from '@/lib/constants/defaults'
 import { useCart } from '@/lib/context/CartContext'
 import { Plus, Minus, ShoppingBag, Check, Pill, PackageCheck } from 'lucide-react'
 
@@ -37,20 +38,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/products/${product.id}`} className="block">
         {/* Product Image */}
         <div className="w-full h-48 bg-surface-container-low relative overflow-hidden flex items-center justify-center p-4">
-          {product.imageUrl ? (
-            <Image
-              src={product.imageUrl}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center text-outline">
-              <Pill className="w-12 h-12 stroke-[1.5] mb-1 text-primary-container opacity-50" />
-              <span className="text-xs font-mono">No Image</span>
-            </div>
-          )}
+          <Image
+            src={product.imageUrl || DEFAULT_PRODUCT_IMAGE}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+          />
         </div>
 
         {/* Details Section */}

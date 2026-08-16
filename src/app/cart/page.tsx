@@ -8,6 +8,7 @@ import { Footer } from '@/components/storefront/Footer'
 import { useCart } from '@/lib/context/CartContext'
 import { getStoreSettings } from '@/lib/supabase/services'
 import { StoreSettings } from '@/types'
+import { DEFAULT_PRODUCT_IMAGE } from '@/lib/constants/defaults'
 import { 
   ShoppingBag, Trash2, Plus, Minus, ArrowLeft, ArrowRight, 
   Package, ShieldCheck, Pill 
@@ -86,11 +87,7 @@ export default function CartPage() {
                   {/* Item Image & Details */}
                   <div className="flex items-center space-x-4 flex-1">
                     <div className="w-16 h-16 bg-surface-container-low rounded-lg relative overflow-hidden shrink-0 border border-surface-container flex items-center justify-center p-1">
-                      {item.imageUrl ? (
-                        <Image src={item.imageUrl} alt={item.name} fill className="object-contain" />
-                      ) : (
-                        <Pill className="w-8 h-8 text-primary-container opacity-50" />
-                      )}
+                      <Image src={item.imageUrl || DEFAULT_PRODUCT_IMAGE} alt={item.name} fill className="object-contain" />
                     </div>
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-primary block">

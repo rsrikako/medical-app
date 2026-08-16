@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Navbar } from '@/components/storefront/Navbar'
 import { Footer } from '@/components/storefront/Footer'
 import { getProductById, getStoreSettings } from '@/lib/supabase/services'
+import { DEFAULT_PRODUCT_IMAGE } from '@/lib/constants/defaults'
 import { Product, StoreSettings } from '@/types'
 import { useCart } from '@/lib/context/CartContext'
 import { 
@@ -123,20 +124,13 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-10">
             {/* Left Image View */}
             <div className="w-full h-80 sm:h-96 bg-surface-container-low rounded-xl relative flex items-center justify-center p-6 border border-surface-container">
-              {product.imageUrl ? (
-                <Image
-                  src={product.imageUrl}
-                  alt={product.name}
-                  fill
-                  priority
-                  className="object-contain p-4"
-                />
-              ) : (
-                <div className="flex flex-col items-center justify-center text-outline">
-                  <Pill className="w-20 h-20 stroke-[1.5] mb-2 text-primary-container opacity-50" />
-                  <span className="text-sm font-mono font-medium">No Image Available</span>
-                </div>
-              )}
+              <Image
+                src={product.imageUrl || DEFAULT_PRODUCT_IMAGE}
+                alt={product.name}
+                fill
+                priority
+                className="object-contain p-4"
+              />
             </div>
 
             {/* Right Product Information */}
