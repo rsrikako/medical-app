@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { generateExcelTemplate } from '@/lib/excel/template'
 import { parseExcelFile, validateExcelRows } from '@/lib/excel/importer'
-import { getProducts, getCategories, saveProduct, deleteProduct } from '@/lib/supabase/services'
+import { getProducts, getCategories, deleteProduct } from '@/lib/supabase/services'
 import { ExcelValidationResult, Product, Category } from '@/types'
 import { 
   Download, Upload, FileSpreadsheet, AlertTriangle, 
