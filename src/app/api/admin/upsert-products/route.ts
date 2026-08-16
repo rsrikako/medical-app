@@ -40,45 +40,60 @@ export async function POST(req: Request) {
     }
     const deduped = Array.from(map.values())
 
-    const CHUNK_SIZE = 250
+    const CHUNK_SIZE = parseInt(process.env.UPLOAD_CHUNK_SIZE || '500', 10)
+    const CONCURRENCY = parseInt(process.env.UPLOAD_CONCURRENCY || '4', 10)
+    const RETRIES = parseInt(process.env.UPLOAD_RETRIES || '3', 10)
+
     const chunks: any[][] = []
     for (let i = 0; i < deduped.length; i += CHUNK_SIZE) chunks.push(deduped.slice(i, i + CHUNK_SIZE))
 
     const results: UploadResult[] = []
 
-    for (let i = 0; i < chunks.length; i++) {
-      const chunk = chunks[i]
-      try {
-        const { error } = await supabase
-          .from('products')
-          .upsert(chunk, { onConflict: 'sku' })
-
-        if (error) {
-          // Attempt per-row upsert to surface problematic SKUs (e.g., duplicates in DB or malformed rows)
-          const perRowFailures: string[] = []
-          for (const row of chunk) {
-            try {
-              const { error: perErr } = await supabase
-                .from('products')
-                .upsert(row, { onConflict: 'sku' })
-              if (perErr) {
-                perRowFailures.push(`${row.sku || '<no-sku>'}: ${perErr.message || String(perErr)}`)
-              }
-            } catch (e: any) {
-              perRowFailures.push(`${row.sku || '<no-sku>'}: ${e.message || String(e)}`)
-            }
+    // helper: upsert with retries
+    async function upsertChunkWithRetries(chunk: any[], index: number): Promise<UploadResult> {
+      let attempt = 0
+      while (attempt < RETRIES) {
+        try {
+          const { error } = await supabase.from('products').upsert(chunk, { onConflict: 'sku' })
+          if (error) throw error
+          return { chunk: index + 1, size: chunk.length, success: true }
+        } catch (err: any) {
+          attempt++
+          if (attempt >= RETRIES) {
+            return { chunk: index + 1, size: chunk.length, success: false, error: err.message || String(err) }
           }
+          // exponential backoff
+          const backoffMs = 200 * Math.pow(2, attempt)
+          await new Promise((res) => setTimeout(res, backoffMs))
+        }
+      }
+      return { chunk: -1, size: 0, success: false, error: 'unreachable' }
+    }
 
-          results.push({ chunk: i + 1, size: chunk.length, success: false, error: `${error.message || String(error)}; perRowFailures: ${perRowFailures.join(' | ')}` })
-          // stop on fatal error after diagnostics
+    // concurrency pool
+    const pool: Promise<void>[] = []
+    let nextIndex = 0
+
+    async function worker() {
+      while (true) {
+        const i = nextIndex++
+        if (i >= chunks.length) break
+        const chunk = chunks[i]
+        const res = await upsertChunkWithRetries(chunk, i)
+        results.push(res)
+        if (!res.success) {
+          // stop further workers on fatal chunk error
+          nextIndex = chunks.length
           break
         }
-        results.push({ chunk: i + 1, size: chunk.length, success: true })
-      } catch (err: any) {
-        results.push({ chunk: i + 1, size: chunk.length, success: false, error: err.message || String(err) })
-        break
       }
     }
+
+    for (let w = 0; w < Math.min(CONCURRENCY, chunks.length); w++) {
+      pool.push(worker())
+    }
+
+    await Promise.all(pool)
 
     return NextResponse.json({ uploaded: results.filter(r => r.success).length, results })
   } catch (err: any) {
