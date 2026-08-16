@@ -78,6 +78,23 @@ export async function getProducts(): Promise<Product[]> {
   }
 }
 
+// Return the count of products. If `status` is provided, count only that status.
+export async function getProductsCount(status?: 'active' | 'inactive'): Promise<number> {
+  const supabase = getSupabaseOrThrow()
+
+  try {
+    let query = supabase.from('products').select('*', { count: 'exact', head: true })
+    if (status) query = query.eq('status', status)
+
+    const { count, error } = await query
+    if (error) throw error
+    return typeof count === 'number' ? count : 0
+  } catch (err) {
+    console.error('Supabase getProductsCount failed:', err)
+    throw err
+  }
+}
+
 export async function getProductById(id: string): Promise<Product | null> {
   const supabase = getSupabaseOrThrow()
 

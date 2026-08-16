@@ -2,23 +2,29 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getProducts, getCategories } from '@/lib/supabase/services'
-import { Product, Category } from '@/types'
+import { getProductsCount, getCategories } from '@/lib/supabase/services'
+import { Category } from '@/types'
 import { 
   Package, PackageCheck, PackageX, Layers, PlusCircle, 
   FileSpreadsheet, Settings, ArrowRight, Building2, Eye 
 } from 'lucide-react'
 
 export default function AdminDashboardPage() {
-  const [products, setProducts] = useState<Product[]>([])
+  const [activeProductsCount, setActiveProductsCount] = useState<number>(0)
+  const [inactiveProductsCount, setInactiveProductsCount] = useState<number>(0)
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const [prods, cats] = await Promise.all([getProducts(), getCategories()])
-        setProducts(prods)
+        const [activeCount, inactiveCount, cats] = await Promise.all([
+          getProductsCount('active'),
+          getProductsCount('inactive'),
+          getCategories(),
+        ])
+        setActiveProductsCount(activeCount)
+        setInactiveProductsCount(inactiveCount)
         setCategories(cats)
       } catch (err) {
         console.error('Failed to load dashboard metrics:', err)
@@ -28,9 +34,7 @@ export default function AdminDashboardPage() {
     }
     loadStats()
   }, [])
-
-  const activeProductsCount = products.filter((p) => p.status === 'active').length
-  const inactiveProductsCount = products.filter((p) => p.status === 'inactive').length
+  const totalProducts = activeProductsCount + inactiveProductsCount
   const activeCategoriesCount = categories.filter((c) => c.status === 'active').length
 
   return (
@@ -50,7 +54,7 @@ export default function AdminDashboardPage() {
           <div>
             <span className="text-xs font-bold text-outline uppercase tracking-wider block">Total Products</span>
             <span className="text-3xl font-extrabold text-on-surface font-mono mt-1 block">
-              {loading ? '...' : products.length}
+              {loading ? '...' : totalProducts}
             </span>
           </div>
           <div className="w-12 h-12 rounded-xl bg-primary-container/10 text-primary flex items-center justify-center">
