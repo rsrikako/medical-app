@@ -42,36 +42,48 @@ export async function getProducts(): Promise<Product[]> {
   const supabase = getSupabaseOrThrow()
 
   try {
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .eq('status', 'active')
-      .order('created_at', { ascending: false })
-      .range(0, 99999)
+    // Paginated fetch: some Supabase/PostgREST setups cap rows per request (commonly 1000).
+    const pageSize = parseInt(process.env.PRODUCTS_PAGE_SIZE || '1000', 10)
+    let from = 0
+    const allRows: any[] = []
 
-    if (error) throw error
-    if (data) {
-      const products = data.map(row => ({
-        id: row.id,
-        sku: row.sku,
-        name: row.name,
-        categoryId: row.category_id,
-        categoryName: row.category_name || 'N/A',
-        brand: row.brand,
-        packCount: row.pack_count,
-        strength: row.strength,
-        form: row.form,
-        mrp: row.mrp,
-        description: row.description,
-        imageUrl: row.image_url,
-        status: row.status,
-        createdAt: row.created_at,
-        updatedAt: row.updated_at,
-      })) as Product[]
-      setStoredLocalData(LOCAL_PRODUCTS_KEY, products)
-      return products
+    while (true) {
+      const to = from + pageSize - 1
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false })
+        .range(from, to)
+
+      if (error) throw error
+      if (!data || data.length === 0) break
+
+      allRows.push(...data)
+      if (data.length < pageSize) break
+      from += pageSize
     }
-    return []
+
+    const products = allRows.map(row => ({
+      id: row.id,
+      sku: row.sku,
+      name: row.name,
+      categoryId: row.category_id,
+      categoryName: row.category_name || 'N/A',
+      brand: row.brand,
+      packCount: row.pack_count,
+      strength: row.strength,
+      form: row.form,
+      mrp: row.mrp,
+      description: row.description,
+      imageUrl: row.image_url,
+      status: row.status,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    })) as Product[]
+
+    setStoredLocalData(LOCAL_PRODUCTS_KEY, products)
+    return products
   } catch (err) {
     console.error('Supabase getProducts failed:', err)
     throw err
