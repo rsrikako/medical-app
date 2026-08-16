@@ -47,7 +47,7 @@ export default function VersionChecker() {
       <div className="bg-amber-500 text-white px-4 py-2 rounded shadow-lg flex items-center gap-3">
         <div className="text-sm">A new version of the app is available.</div>
         <button onClick={doReload} className="bg-white text-amber-600 px-3 py-1 rounded text-sm font-semibold">Reload</button>
-        <button onClick={() => localStorage.setItem('app_version', remote || '') && setStale(false)} className="text-white/90 text-xs underline">Dismiss</button>
+        <button onClick={() => { localStorage.setItem('app_version', remote || ''); setStale(false); }} className="text-white/90 text-xs underline">Dismiss</button>
       </div>
     </div>
   )
