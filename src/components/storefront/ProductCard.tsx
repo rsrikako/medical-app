@@ -62,24 +62,32 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </h3>
 
-          {/* Strength, MRP & SKU row */}
-          <div className="flex items-center justify-between text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
-            <div>
-              {product.strength && (
-                <span className="text-on-surface font-medium block">{product.strength}</span>
-              )}
-              {product.salePrice !== undefined && product.salePrice !== null ? (
-                <div className="flex items-baseline gap-2 flex-nowrap">
-                  <span className="text-emerald-800 font-bold text-sm whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
-                  {product.mrp !== undefined && product.mrp !== null && (
-                    <span className="text-on-surface-variant line-through text-[11px] ml-2 whitespace-nowrap inline-block">MRP ₹{Number(product.mrp).toFixed(2)}</span>
-                  )}
-                </div>
-              ) : product.mrp !== undefined && product.mrp !== null ? (
-                <span className="text-emerald-700 font-bold text-xs">MRP: ₹{Number(product.mrp).toFixed(2)}</span>
-              ) : null}
+          {/* Strength, Price & SKU row - responsive, aligned across breakpoints */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
+            <div className="flex w-full items-start sm:items-center sm:gap-4">
+              <div className="flex-shrink-0">
+                {product.strength && (
+                  <span className="text-on-surface font-medium block">{product.strength}</span>
+                )}
+              </div>
+
+              <div className="flex flex-1 items-baseline sm:items-baseline gap-2 sm:gap-3 justify-start">
+                {product.salePrice !== undefined && product.salePrice !== null ? (
+                  <>
+                    <span className="text-emerald-800 font-semibold text-base sm:text-lg leading-tight whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
+                    {product.mrp !== undefined && product.mrp !== null && (
+                      <span className="text-on-surface-variant line-through text-[11px] ml-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                    )}
+                  </>
+                ) : product.mrp !== undefined && product.mrp !== null ? (
+                  <span className="text-on-surface-variant font-semibold whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                ) : null}
+              </div>
             </div>
-            <span className="text-outline">SKU: {product.sku}</span>
+
+            <div className="mt-2 sm:mt-0 sm:ml-4 flex-shrink-0">
+              <span className="text-outline text-xs">SKU: {product.sku}</span>
+            </div>
           </div>
         </div>
       </Link>
