@@ -52,9 +52,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Brand & Pack info */}
           <div className="flex items-center justify-between text-xs text-on-surface-variant mb-1.5">
             <span className="font-semibold text-primary">{product.brand}</span>
-            <span className="bg-surface-container text-on-surface-variant font-mono px-2 py-0.5 rounded text-[11px]">
-              {product.packCount}
-            </span>
+            {/* packCount moved below into the SKU area to free space here */}
           </div>
 
           {/* Product Title */}
@@ -75,6 +73,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 {product.salePrice !== undefined && product.salePrice !== null ? (
                   <div className="flex flex-col">
                     <span className="text-emerald-800 font-semibold text-base sm:text-lg leading-tight whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
+                    <span className="text-outline text-xs mt-1">SKU: {product.sku}</span>
                     {product.mrp !== undefined && product.mrp !== null && (
                       <span className="text-on-surface-variant line-through text-[11px] mt-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
                     )}
@@ -86,7 +85,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
 
             <div className="mt-2 sm:mt-0 sm:ml-4 flex-shrink-0">
-              <span className="text-outline text-xs">SKU: {product.sku}</span>
+              <span className="text-outline text-xs">Pack: {product.packCount}</span>
             </div>
           </div>
         </div>
