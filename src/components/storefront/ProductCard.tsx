@@ -71,14 +71,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 )}
               </div>
 
-              <div className="flex flex-1 items-baseline sm:items-baseline gap-2 sm:gap-3 justify-start">
+              <div className="flex flex-1 items-center justify-start">
                 {product.salePrice !== undefined && product.salePrice !== null ? (
-                  <>
+                  <div className="flex flex-col">
                     <span className="text-emerald-800 font-semibold text-base sm:text-lg leading-tight whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
                     {product.mrp !== undefined && product.mrp !== null && (
-                      <span className="text-on-surface-variant line-through text-[11px] ml-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                      <span className="text-on-surface-variant line-through text-[11px] mt-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
                     )}
-                  </>
+                  </div>
                 ) : product.mrp !== undefined && product.mrp !== null ? (
                   <span className="text-on-surface-variant font-semibold whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
                 ) : null}

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useStoreSettings } from '@/lib/context/StoreSettingsContext'
 import Link from 'next/link'
 import { useCart } from '@/lib/context/CartContext'
@@ -21,6 +21,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { settings } = useStoreSettings()
   const resolvedBusinessName = businessName || settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME || ''
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const [localQuery, setLocalQuery] = useState<string>(searchQuery || '')
+
+  // keep localQuery in sync when parent changes searchQuery
+  useEffect(() => {
+    setLocalQuery(searchQuery || '')
+  }, [searchQuery])
+
+  // debounce sending query upstream
+  useEffect(() => {
+    if (!setSearchQuery) return
+    const id = setTimeout(() => setSearchQuery(localQuery), 300)
+    return () => clearTimeout(id)
+  }, [localQuery, setSearchQuery])
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-surface-container border-opacity-80">
@@ -70,11 +83,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   inputMode="search"
                   enterKeyHint="search"
                   placeholder="Search by Product Name, Brand, SKU, or Strength..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={localQuery}
+                  onChange={(e) => setLocalQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
+                      // submit immediately and hide keyboard
+                      setSearchQuery && setSearchQuery(localQuery)
                       inputRef.current?.blur()
                     }
                   }}
