@@ -60,6 +60,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </h3>
 
+          {/* Pack Size below title */}
+          {product.packCount && (
+            <div className="mb-2">
+              <span className="bg-surface-container text-on-surface-variant font-mono px-2 py-0.5 rounded text-[11px]">{product.packCount}</span>
+            </div>
+          )}
+
           {/* Strength, Price & SKU row - responsive, aligned across breakpoints */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
             <div className="flex w-full items-start sm:items-center sm:gap-4">
@@ -84,9 +91,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
             </div>
 
-            <div className="mt-2 sm:mt-0 sm:ml-4 flex-shrink-0">
-              <span className="text-outline text-xs">Pack: {product.packCount}</span>
-            </div>
+            {/* bottom-right area intentionally left empty to allow SKU/price room */}
           </div>
         </div>
       </Link>
