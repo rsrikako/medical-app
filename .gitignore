@@ -34,3 +34,4 @@ Thumbs.db
 
 # Firebase (if needed in future)
 firebase-debug.log
+.vercel
