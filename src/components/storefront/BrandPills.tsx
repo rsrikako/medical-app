@@ -106,7 +106,14 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
           {open && suggestions.length > 0 && (
             <ul className="absolute z-20 mt-1 w-full bg-white border border-outline-variant rounded-lg shadow-md max-h-56 overflow-auto py-1">
               {suggestions.map((s) => (
-                <li key={s} className="px-3 py-2 hover:bg-surface-container-low cursor-pointer text-sm" onClick={() => addBrand(s)}>
+                <li
+                  key={s}
+                  className="px-3 py-2 hover:bg-surface-container-low cursor-pointer text-sm"
+                  onPointerDown={(e) => e.preventDefault()}
+                  onTouchStart={(e) => e.preventDefault()}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => addBrand(s)}
+                >
                   {s}
                 </li>
               ))}

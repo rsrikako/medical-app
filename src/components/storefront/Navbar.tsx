@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { useStoreSettings } from '@/lib/context/StoreSettingsContext'
 import Link from 'next/link'
 import { useCart } from '@/lib/context/CartContext'
@@ -20,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { totalUnitsCount, totalLineItems } = useCart()
   const { settings } = useStoreSettings()
   const resolvedBusinessName = businessName || settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME || ''
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-surface-container border-opacity-80">
@@ -64,6 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="relative">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-outline" />
                 <input
+                  ref={inputRef}
                   type="search"
                   inputMode="search"
                   enterKeyHint="search"
@@ -73,6 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
+                      inputRef.current?.blur()
                     }
                   }}
                   className="clinical-input pl-10 pr-4 py-2 text-sm bg-surface-container-low focus:bg-white rounded-lg"
