@@ -60,10 +60,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </h3>
 
-          {/* Pack Size below title */}
-          {product.packCount && (
+          {/* SKU below title (moved here per request) */}
+          {product.sku && (
             <div className="mb-2">
-              <span className="bg-surface-container text-on-surface-variant font-mono px-2 py-0.5 rounded text-[11px]">{product.packCount}</span>
+              <span className="bg-surface-container text-on-surface-variant font-mono px-2 py-0.5 rounded text-[11px]">SKU: {product.sku}</span>
             </div>
           )}
 
@@ -91,7 +91,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
             </div>
 
-            {/* bottom-right area intentionally left empty to allow SKU/price room */}
+            <div className="mt-2 sm:mt-0 sm:ml-4 flex-shrink-0">
+              <span className="text-outline text-xs">Pack: {product.packCount}</span>
+            </div>
           </div>
         </div>
       </Link>
