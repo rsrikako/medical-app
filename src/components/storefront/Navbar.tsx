@@ -22,9 +22,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const resolvedBusinessName = businessName || settings?.businessName || process.env.NEXT_PUBLIC_STORE_NAME || ''
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-surface-container border-opacity-80">
+    <header className="sticky top-0 z-40 bg-surface/80 border-b border-surface border-opacity-60 transition-colors duration-200">
       {/* Top B2B Announcement Bar */}
-      <div className="bg-primary text-white text-xs py-1.5 px-4">
+      <div className="bg-primary text-white text-xs py-1.5 px-4 rounded-b-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center font-medium">
           <div className="flex items-center space-x-2">
             <ShieldCheck className="w-3.5 h-3.5 text-secondary-container" />

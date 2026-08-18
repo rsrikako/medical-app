@@ -11,9 +11,9 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#003c90',
-          container: '#0f52ba',
-          hover: '#002b66',
+          DEFAULT: '#7C6AEE',
+          container: '#7C6AEE',
+          hover: '#5A55C0',
         },
         secondary: {
           DEFAULT: '#006b5f',
@@ -22,15 +22,15 @@ const config: Config = {
         },
         background: '#f8f9ff',
         surface: {
-          DEFAULT: '#ffffff',
-          dim: '#cbdbf5',
-          bright: '#f8f9ff',
+          DEFAULT: '#F0F1F3',
+          dim: '#D1D5DB',
+          bright: '#F8F9FF',
           container: {
-            lowest: '#ffffff',
-            low: '#eff4ff',
-            DEFAULT: '#e5eeff',
-            high: '#dce9ff',
-            highest: '#d3e4fe',
+            lowest: '#FFFFFF',
+            low: '#E5EEFF',
+            DEFAULT: '#E5EEFF',
+            high: '#D1D5DB',
+            highest: '#B8C2E7',
           },
         },
         'on-surface': '#0b1c30',
@@ -50,7 +50,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Geist', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
