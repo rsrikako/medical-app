@@ -80,7 +80,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 {product.salePrice !== undefined && product.salePrice !== null ? (
                   <div className="flex flex-col">
                     <span className="text-emerald-800 font-semibold text-base sm:text-lg leading-tight whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
-                    <span className="text-outline text-xs mt-1">SKU: {product.sku}</span>
                     {product.mrp !== undefined && product.mrp !== null && (
                       <span className="text-on-surface-variant line-through text-[11px] mt-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
                     )}
