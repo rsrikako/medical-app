@@ -7,7 +7,7 @@ import { ProductCard } from '@/components/storefront/ProductCard'
 import { BrandPills } from '@/components/storefront/BrandPills'
 import { getPaginatedProducts, getStorefrontBrands, getCategories, getStoreSettings } from '@/lib/supabase/services'
 import { Product, Category, StoreSettings } from '@/types'
-import { PackageX, Loader2 } from 'lucide-react'
+import { PackageX, Loader2, Pill, Award } from 'lucide-react'
 
 const DEFAULT_PAGE_SIZE = 500
 
@@ -150,6 +150,45 @@ export default function StorefrontHomePage() {
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Sleek Compact Informational Stats Cards (Single Row on Mobile & Desktop) */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
+          {/* Card 1: Total Products */}
+          <div className="glass-card p-3 sm:p-4 flex items-center justify-between border border-slate-200/80 hover:shadow-md transition-all">
+            <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-xs shrink-0">
+                <Pill className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider truncate">Total Products</p>
+                <h3 className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight truncate">
+                  {loadingInitial && totalCount === 0 ? '...' : totalCount.toLocaleString()}
+                </h3>
+              </div>
+            </div>
+            <span className="hidden md:inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
+              Active Catalog
+            </span>
+          </div>
+
+          {/* Card 2: Total Brands */}
+          <div className="glass-card p-3 sm:p-4 flex items-center justify-between border border-slate-200/80 hover:shadow-md transition-all">
+            <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-700 shadow-xs shrink-0">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider truncate">Total Brands</p>
+                <h3 className="text-base sm:text-xl font-extrabold text-slate-900 tracking-tight truncate">
+                  {brands.length === 0 ? '...' : brands.length.toLocaleString()}
+                </h3>
+              </div>
+            </div>
+            <span className="hidden md:inline-block text-[11px] font-semibold text-primary bg-primary/5 px-2.5 py-1 rounded-full border border-primary/20 shrink-0">
+              Verified Suppliers
+            </span>
+          </div>
+        </div>
+
         {/* Catalog Header and Brand Filters */}
         <div className="mb-6">
           <div className="flex flex-wrap items-baseline justify-between gap-4">
