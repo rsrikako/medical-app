@@ -37,34 +37,84 @@ function getSupabaseOrThrow() {
   return supabase
 }
 
+export interface GetProductsOptions {
+  page?: number
+  pageSize?: number
+  search?: string
+  brands?: string[]
+  sortBy?: 'name' | 'created_at' | 'sku' | 'mrp' | 'sale_price'
+  sortOrder?: 'asc' | 'desc'
+  status?: 'active' | 'inactive' | 'all'
+}
+
+export interface PaginatedProductsResponse {
+  products: Product[]
+  totalCount: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+
 // PRODUCTS API
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts(options?: GetProductsOptions): Promise<Product[]> {
+  const res = await getPaginatedProducts(options)
+  return res.products
+}
+
+export async function getPaginatedProducts(options?: GetProductsOptions): Promise<PaginatedProductsResponse> {
   const supabase = getSupabaseOrThrow()
 
   try {
-    // Paginated fetch: some Supabase/PostgREST setups cap rows per request (commonly 1000).
-    const pageSize = parseInt(process.env.PRODUCTS_PAGE_SIZE || '1000', 10)
-    let from = 0
-    const allRows: any[] = []
+    const page = options?.page && options.page > 0 ? options.page : 1
+    const pageSize = options?.pageSize && options.pageSize > 0 ? options.pageSize : 500
+    const sortBy = options?.sortBy || 'name'
+    const sortOrder = options?.sortOrder || 'asc'
+    const status = options?.status || 'active'
+    const search = options?.search?.trim() || ''
+    const brands = options?.brands?.filter(Boolean) || []
 
-    while (true) {
-      const to = from + pageSize - 1
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .range(from, to)
+    let query = supabase
+      .from('products')
+      .select('*', { count: 'exact' })
 
-      if (error) throw error
-      if (!data || data.length === 0) break
-
-      allRows.push(...data)
-      if (data.length < pageSize) break
-      from += pageSize
+    if (status !== 'all') {
+      query = query.eq('status', status)
     }
 
-    const products = allRows.map(row => ({
+    if (brands.length > 0) {
+      query = query.in('brand', brands)
+    }
+
+    if (search !== '') {
+      const pattern = `%${search}%`
+      query = query.or(`name.ilike.${pattern},brand.ilike.${pattern},sku.ilike.${pattern},strength.ilike.${pattern},category_name.ilike.${pattern}`)
+    }
+
+    // Sort column mapping
+    const sortColumnMap: Record<string, string> = {
+      name: 'name',
+      created_at: 'created_at',
+      sku: 'sku',
+      mrp: 'mrp',
+      sale_price: 'sale_price',
+    }
+    const dbSortColumn = sortColumnMap[sortBy] || 'name'
+    query = query.order(dbSortColumn, { ascending: sortOrder === 'asc', nullsFirst: false })
+
+    // Pagination range
+    const from = (page - 1) * pageSize
+    const to = from + pageSize - 1
+    query = query.range(from, to)
+
+    const { data, count, error } = await query
+
+    if (error) throw error
+
+    const rows = data || []
+    const totalCount = count ?? 0
+    const totalPages = Math.ceil(totalCount / pageSize) || 1
+
+    const products = rows.map((row: any) => ({
       id: row.id,
       sku: row.sku,
       name: row.name,
@@ -84,10 +134,55 @@ export async function getProducts(): Promise<Product[]> {
     })) as Product[]
 
     setStoredLocalData(LOCAL_PRODUCTS_KEY, products)
-    return products
+    return {
+      products,
+      totalCount,
+      page,
+      pageSize,
+      totalPages,
+    }
   } catch (err) {
-    console.error('Supabase getProducts failed:', err)
+    console.error('Supabase getPaginatedProducts failed:', err)
     throw err
+  }
+}
+
+export async function getStorefrontBrands(): Promise<string[]> {
+  const supabase = getSupabaseOrThrow()
+
+  try {
+    const pageSize = 1000
+    let from = 0
+    const brandSet = new Set<string>()
+
+    while (true) {
+      const to = from + pageSize - 1
+      const { data, error } = await supabase
+        .from('products')
+        .select('brand')
+        .eq('status', 'active')
+        .not('brand', 'is', null)
+        .neq('brand', '')
+        .range(from, to)
+
+      if (error) throw error
+      if (!data || data.length === 0) break
+
+      for (const row of data) {
+        if (row.brand && typeof row.brand === 'string') {
+          const trimmed = row.brand.trim()
+          if (trimmed) brandSet.add(trimmed)
+        }
+      }
+
+      if (data.length < pageSize) break
+      from += pageSize
+    }
+
+    return Array.from(brandSet).sort()
+  } catch (err) {
+    console.error('Supabase getStorefrontBrands failed:', err)
+    return []
   }
 }
 
