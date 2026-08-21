@@ -189,25 +189,9 @@ export default function StorefrontHomePage() {
           </div>
         </div>
 
-        {/* Catalog Header and Brand Filters */}
+        {/* Brand Filters */}
         <div className="mb-6">
-          <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <h2 className="text-lg font-bold text-on-surface">Product Catalog</h2>
-              <p className="text-xs text-on-surface-variant">
-                {loadingInitial
-                  ? 'Loading products...'
-                  : totalCount === 0
-                  ? 'No items'
-                  : `Loaded ${loadedCount} of ${totalCount} ${totalCount === 1 ? 'item' : 'items'}`}
-              </p>
-            </div>
-          </div>
-
-          {/* Brands Filter */}
-          <div className="mt-3">
-            <BrandPills brands={brands} selectedBrands={selectedBrands} onChange={handleBrandsChange} />
-          </div>
+          <BrandPills brands={brands} selectedBrands={selectedBrands} onChange={handleBrandsChange} />
         </div>
 
         {/* Product Grid / Loading / Empty States */}
