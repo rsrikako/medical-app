@@ -246,14 +246,17 @@ export default function CheckoutPage() {
                   <label className="block text-xs font-bold text-on-surface uppercase tracking-wider mb-1">
                     Additional Instructions / Notes <span className="text-outline text-[10px] font-normal">(Optional)</span>
                   </label>
-                  <textarea
-                    name="notes"
-                    rows={2}
-                    placeholder="e.g. Urgent dispatch requested / Please check expiry dates..."
-                    value={formData.notes}
-                    onChange={handleChange}
-                    className="clinical-input"
-                  ></textarea>
+                  <div className="relative">
+                    <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-outline" />
+                    <textarea
+                      name="notes"
+                      rows={2}
+                      placeholder="e.g. Urgent dispatch requested / Please check expiry dates..."
+                      value={formData.notes}
+                      onChange={handleChange}
+                      className="clinical-input pl-10 py-2"
+                    ></textarea>
+                  </div>
                 </div>
 
                 {/* WhatsApp Submit CTA */}

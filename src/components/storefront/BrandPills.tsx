@@ -68,17 +68,17 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
     <div className="w-full">
       <div className="flex items-center gap-2">
         <div className="flex-1 relative">
-          <div className="flex flex-wrap items-center gap-2 bg-white border border-outline-variant rounded-lg px-3 py-2 overflow-hidden">
+          <div className="flex flex-wrap items-center gap-2 bg-white/70 backdrop-blur-md border border-white/80 rounded-md px-3 py-2 shadow-sm overflow-hidden">
             {selectedBrands.map((b) => (
               <span
                 key={b}
-                className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium"
+                className="inline-flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-lg text-xs font-bold shadow-xs backdrop-blur-md"
               >
                 <span className="truncate max-w-[6rem] sm:max-w-[10rem]">{b}</span>
                 <button
                   aria-label={`Remove ${b}`}
                   onClick={() => removeBrand(b)}
-                  className="p-1 rounded-full hover:bg-primary/20"
+                  className="p-0.5 rounded-md hover:bg-primary/20 text-primary transition-colors"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -86,7 +86,7 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
             ))}
 
             <div className="flex items-center flex-1 min-w-0 pr-2">
-              <Search className="w-4 h-4 text-on-surface-variant mr-2" />
+              <Search className="w-4 h-4 text-slate-400 mr-2" />
               <input
                 ref={inputRef}
                 value={query}
@@ -97,18 +97,18 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
                 onFocus={() => setOpen(true)}
                 onKeyDown={onKeyDown}
                 placeholder="Search brands"
-                className="flex-1 outline-none text-sm bg-transparent placeholder:text-on-surface-variant min-w-0 pr-8 truncate"
+                className="flex-1 outline-none text-sm bg-transparent placeholder:text-slate-400 min-w-0 pr-8 truncate font-medium"
                 aria-label="Search brands"
               />
             </div>
           </div>
 
           {open && suggestions.length > 0 && (
-            <ul className="absolute z-20 mt-1 w-full bg-white border border-outline-variant rounded-lg shadow-md max-h-56 overflow-auto py-1">
+            <ul className="absolute z-20 mt-1.5 w-full bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-xl shadow-xl max-h-56 overflow-auto py-1.5">
               {suggestions.map((s) => (
                 <li
                   key={s}
-                  className="px-3 py-2 hover:bg-surface-container-low cursor-pointer text-sm"
+                  className="px-3.5 py-2 hover:bg-primary/10 hover:text-primary cursor-pointer text-sm font-medium transition-colors"
                   onPointerDown={(e) => e.preventDefault()}
                   onTouchStart={(e) => e.preventDefault()}
                   onMouseDown={(e) => e.preventDefault()}
@@ -124,9 +124,9 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
         <div className="flex items-center gap-2">
           <button
             onClick={clearAll}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-outline-variant hover:bg-surface-container-low flex-shrink-0"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white/80 border border-slate-200 hover:bg-slate-50 text-slate-700 shadow-xs flex-shrink-0 transition-colors"
           >
-            <Trash className="w-4 h-4" />
+            <Trash className="w-3.5 h-3.5 text-slate-500" />
             Clear
           </button>
         </div>
@@ -134,3 +134,4 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
     </div>
   )
 }
+
