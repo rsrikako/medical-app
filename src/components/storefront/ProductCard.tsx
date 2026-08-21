@@ -67,32 +67,33 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
           )}
 
-          {/* Strength, Price & SKU row - responsive, aligned across breakpoints */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
-            <div className="flex w-full items-start sm:items-center sm:gap-4">
-              <div className="flex-shrink-0">
+          {/* Strength, Price & SKU row - mobile: price left / pack right; when salePrice present show MRP struck on second line */}
+          <div className="text-xs text-outline mb-3 font-mono bg-surface-container-low p-2 rounded">
+            <div className="flex items-start justify-between w-full gap-3">
+              <div className="flex items-center gap-3">
                 {product.strength && (
                   <span className="text-on-surface font-medium block">{product.strength}</span>
                 )}
-              </div>
 
-              <div className="flex flex-1 items-center justify-start">
-                {product.salePrice !== undefined && product.salePrice !== null ? (
-                  <div className="flex flex-col">
+                <div>
+                  {product.salePrice !== undefined && product.salePrice !== null ? (
                     <span className="text-emerald-800 font-semibold text-base sm:text-lg leading-tight whitespace-nowrap">₹{Number(product.salePrice).toFixed(2)}</span>
-                    {product.mrp !== undefined && product.mrp !== null && (
-                      <span className="text-on-surface-variant line-through text-[11px] mt-1 whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
-                    )}
-                  </div>
-                ) : product.mrp !== undefined && product.mrp !== null ? (
-                  <span className="text-on-surface-variant font-semibold whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
-                ) : null}
+                  ) : product.mrp !== undefined && product.mrp !== null ? (
+                    <span className="text-on-surface-variant font-semibold whitespace-nowrap">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="flex-shrink-0">
+                <span className="text-outline text-xs">Pack: {product.packCount}</span>
               </div>
             </div>
 
-            <div className="mt-2 sm:mt-0 sm:ml-4 flex-shrink-0">
-              <span className="text-outline text-xs">Pack: {product.packCount}</span>
-            </div>
+            {product.salePrice !== undefined && product.salePrice !== null && product.mrp !== undefined && product.mrp !== null && (
+              <div className="mt-1">
+                <span className="text-on-surface-variant line-through text-[11px]">MRP ₹{Number(product.mrp).toFixed(2)}</span>
+              </div>
+            )}
           </div>
         </div>
       </Link>
