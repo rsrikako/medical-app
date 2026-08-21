@@ -186,6 +186,56 @@ export async function getStorefrontBrands(): Promise<string[]> {
   }
 }
 
+export interface BrandSummary {
+  name: string
+  productCount: number
+}
+
+export async function getBrandsWithCounts(): Promise<BrandSummary[]> {
+  const supabase = getSupabaseOrThrow()
+
+  try {
+    const pageSize = 1000
+    let from = 0
+    const brandMap = new Map<string, number>()
+
+    while (true) {
+      const to = from + pageSize - 1
+      const { data, error } = await supabase
+        .from('products')
+        .select('brand')
+        .eq('status', 'active')
+        .not('brand', 'is', null)
+        .neq('brand', '')
+        .range(from, to)
+
+      if (error) throw error
+      if (!data || data.length === 0) break
+
+      for (const row of data) {
+        if (row.brand && typeof row.brand === 'string') {
+          const trimmed = row.brand.trim()
+          if (trimmed) {
+            brandMap.set(trimmed, (brandMap.get(trimmed) || 0) + 1)
+          }
+        }
+      }
+
+      if (data.length < pageSize) break
+      from += pageSize
+    }
+
+    const summaries: BrandSummary[] = Array.from(brandMap.entries())
+      .map(([name, productCount]) => ({ name, productCount }))
+      .sort((a, b) => a.name.localeCompare(b.name))
+
+    return summaries
+  } catch (err) {
+    console.error('Supabase getBrandsWithCounts failed:', err)
+    return []
+  }
+}
+
 // Return the count of products. If `status` is provided, count only that status.
 export async function getProductsCount(status?: 'active' | 'inactive'): Promise<number> {
   const supabase = getSupabaseOrThrow()
