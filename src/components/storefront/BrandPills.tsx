@@ -66,8 +66,8 @@ export const BrandPills: React.FC<BrandPillsProps> = ({ brands, selectedBrands, 
 
   return (
     <div className="w-full">
-      {/* Wrapped in a glass-card with hover shadow & lift animation */}
-      <div className="glass-card p-3 sm:p-4 border border-slate-200/80 hover:shadow-md transition-all duration-300">
+      {/* Static crystal card without hover lift/animation */}
+      <div className="bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-xl border border-slate-200/80 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="flex-1 relative">
             <div className="flex flex-wrap items-center gap-2 bg-white/80 backdrop-blur-md border border-slate-200/80 rounded-xl px-3 py-2 shadow-inner overflow-hidden focus-within:ring-2 focus-within:ring-primary/20 transition-all">
